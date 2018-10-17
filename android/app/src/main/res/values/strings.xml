@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">seeking-shelter</string>
+    <string name="contact">contact</string>
+    <string name="donate">donate</string>
+    <string name="listings">listings</string>
+    <string name="map">map</string>
+</resources>
