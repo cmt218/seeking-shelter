@@ -2,12 +2,16 @@ package fnc.com.seeking_shelter.homepage
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.ListFragment
+import android.support.v4.app.NavUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import fnc.com.seeking_shelter.R
+import fnc.com.seeking_shelter.contactpage.ContactFragment
+import fnc.com.seeking_shelter.donatepage.DonateFragment
+import fnc.com.seeking_shelter.listingpage.ListingFragment
 import fnc.com.seeking_shelter.mappage.MapFragment
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.home_fragment.*
 
 class HomeFragment : Fragment() {
@@ -18,16 +22,20 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        navigate_donate.text = getString(R.string.donate)
-        navigate_contact.text = getString(R.string.contact)
-        navigate_list.text = getString(R.string.listings)
-        navigate_map.text = getString(R.string.map)
-        navigate_map.setOnClickListener( View.OnClickListener {
-            fragmentManager
-                    ?.beginTransaction()
-                    ?.hide(this)
-                    ?.add(MapFragment.newInstance(), "Map")
-                    ?.commit() })
+
+        navigate_donate.setOnClickListener(changeFragment(DonateFragment.newInstance()))
+        navigate_contact.setOnClickListener(changeFragment(ContactFragment.newInstance()))
+        navigate_list.setOnClickListener(changeFragment(ListingFragment.newInstance()))
+        navigate_map.setOnClickListener(changeFragment(MapFragment.newInstance()))
+
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    fun changeFragment(fragment: Fragment): View.OnClickListener = View.OnClickListener {
+        fragmentManager!!
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit()
     }
 }
