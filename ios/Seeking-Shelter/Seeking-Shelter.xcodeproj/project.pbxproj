@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		0D04D4122176A73500268D70 /* HomepageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D04D4112176A73500268D70 /* HomepageCollectionViewCell.swift */; };
+		0D04D4162178061900268D70 /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D04D4152178061900268D70 /* ContactViewController.swift */; };
+		0D04D41B217817BA00268D70 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D04D41A217817BA00268D70 /* MapViewController.swift */; };
+		0D04D41F217818AF00268D70 /* ListingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D04D41E217818AF00268D70 /* ListingsViewController.swift */; };
+		0D04D422217B801100268D70 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D04D421217B801100268D70 /* WebService.swift */; };
+		0D04D425217B809200268D70 /* ShelterLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D04D424217B809200268D70 /* ShelterLocation.swift */; };
+		0D04D428217B875800268D70 /* Location.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D04D427217B875800268D70 /* Location.json */; };
+		0D04D42C21815A9500268D70 /* ListingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D04D42B21815A9500268D70 /* ListingsCollectionViewCell.swift */; };
+		0D04D42E2185050500268D70 /* LocationList.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D04D42D2185050500268D70 /* LocationList.json */; };
 		0D8AE692216AAA98006F38E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8AE691216AAA98006F38E0 /* AppDelegate.swift */; };
 		0D8AE697216AAA98006F38E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D8AE695216AAA98006F38E0 /* Main.storyboard */; };
 		0D8AE699216AAA9A006F38E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D8AE698216AAA9A006F38E0 /* Assets.xcassets */; };
@@ -15,6 +23,7 @@
 		0D8AE6A7216AAA9A006F38E0 /* Seeking_ShelterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8AE6A6216AAA9A006F38E0 /* Seeking_ShelterTests.swift */; };
 		0D8AE6B2216AAA9A006F38E0 /* Seeking_ShelterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8AE6B1216AAA9A006F38E0 /* Seeking_ShelterUITests.swift */; };
 		0D8AE6C1216AACD8006F38E0 /* HomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8AE6C0216AACD8006F38E0 /* HomepageViewController.swift */; };
+		0DA671BD218E4A0B00F92095 /* CompressedLocationList.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DA671BC218E4A0B00F92095 /* CompressedLocationList.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +45,14 @@
 
 /* Begin PBXFileReference section */
 		0D04D4112176A73500268D70 /* HomepageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageCollectionViewCell.swift; sourceTree = "<group>"; };
+		0D04D4152178061900268D70 /* ContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
+		0D04D41A217817BA00268D70 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		0D04D41E217818AF00268D70 /* ListingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingsViewController.swift; sourceTree = "<group>"; };
+		0D04D421217B801100268D70 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		0D04D424217B809200268D70 /* ShelterLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelterLocation.swift; sourceTree = "<group>"; };
+		0D04D427217B875800268D70 /* Location.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Location.json; sourceTree = "<group>"; };
+		0D04D42B21815A9500268D70 /* ListingsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingsCollectionViewCell.swift; sourceTree = "<group>"; };
+		0D04D42D2185050500268D70 /* LocationList.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LocationList.json; sourceTree = "<group>"; };
 		0D8AE68E216AAA98006F38E0 /* Seeking-Shelter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Seeking-Shelter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D8AE691216AAA98006F38E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0D8AE696216AAA98006F38E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -49,6 +66,7 @@
 		0D8AE6B1216AAA9A006F38E0 /* Seeking_ShelterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seeking_ShelterUITests.swift; sourceTree = "<group>"; };
 		0D8AE6B3216AAA9A006F38E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D8AE6C0216AACD8006F38E0 /* HomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewController.swift; sourceTree = "<group>"; };
+		0DA671BC218E4A0B00F92095 /* CompressedLocationList.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CompressedLocationList.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +94,57 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D04D414217805F400268D70 /* Contact */ = {
+			isa = PBXGroup;
+			children = (
+				0D04D4152178061900268D70 /* ContactViewController.swift */,
+			);
+			path = Contact;
+			sourceTree = "<group>";
+		};
+		0D04D41C217817DA00268D70 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				0D04D41A217817BA00268D70 /* MapViewController.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		0D04D41D2178189800268D70 /* Listings */ = {
+			isa = PBXGroup;
+			children = (
+				0D04D41E217818AF00268D70 /* ListingsViewController.swift */,
+				0D04D42B21815A9500268D70 /* ListingsCollectionViewCell.swift */,
+			);
+			path = Listings;
+			sourceTree = "<group>";
+		};
+		0D04D420217B800200268D70 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0D04D421217B801100268D70 /* WebService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		0D04D423217B808000268D70 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0D04D424217B809200268D70 /* ShelterLocation.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0D04D426217B872A00268D70 /* TestJsons */ = {
+			isa = PBXGroup;
+			children = (
+				0D04D427217B875800268D70 /* Location.json */,
+				0D04D42D2185050500268D70 /* LocationList.json */,
+				0DA671BC218E4A0B00F92095 /* CompressedLocationList.json */,
+			);
+			path = TestJsons;
+			sourceTree = "<group>";
+		};
 		0D8AE685216AAA98006F38E0 = {
 			isa = PBXGroup;
 			children = (
@@ -99,7 +168,13 @@
 		0D8AE690216AAA98006F38E0 /* Seeking-Shelter */ = {
 			isa = PBXGroup;
 			children = (
+				0D04D423217B808000268D70 /* Models */,
+				0D04D420217B800200268D70 /* Services */,
+				0D04D41C217817DA00268D70 /* Map */,
+				0D04D41D2178189800268D70 /* Listings */,
+				0D04D414217805F400268D70 /* Contact */,
 				0D8AE6BF216AAC48006F38E0 /* Homepage */,
+				0D04D426217B872A00268D70 /* TestJsons */,
 				0D8AE691216AAA98006F38E0 /* AppDelegate.swift */,
 				0D8AE695216AAA98006F38E0 /* Main.storyboard */,
 				0D8AE698216AAA9A006F38E0 /* Assets.xcassets */,
@@ -242,6 +317,9 @@
 			files = (
 				0D8AE69C216AAA9A006F38E0 /* LaunchScreen.storyboard in Resources */,
 				0D8AE699216AAA9A006F38E0 /* Assets.xcassets in Resources */,
+				0DA671BD218E4A0B00F92095 /* CompressedLocationList.json in Resources */,
+				0D04D42E2185050500268D70 /* LocationList.json in Resources */,
+				0D04D428217B875800268D70 /* Location.json in Resources */,
 				0D8AE697216AAA98006F38E0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,8 +345,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D04D425217B809200268D70 /* ShelterLocation.swift in Sources */,
 				0D8AE692216AAA98006F38E0 /* AppDelegate.swift in Sources */,
+				0D04D41B217817BA00268D70 /* MapViewController.swift in Sources */,
+				0D04D422217B801100268D70 /* WebService.swift in Sources */,
+				0D04D4162178061900268D70 /* ContactViewController.swift in Sources */,
 				0D8AE6C1216AACD8006F38E0 /* HomepageViewController.swift in Sources */,
+				0D04D42C21815A9500268D70 /* ListingsCollectionViewCell.swift in Sources */,
+				0D04D41F217818AF00268D70 /* ListingsViewController.swift in Sources */,
 				0D04D4122176A73500268D70 /* HomepageCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

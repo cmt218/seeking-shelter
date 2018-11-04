@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SafariServices
 
 public class HomepageViewController: UIViewController {
     
@@ -15,6 +16,7 @@ public class HomepageViewController: UIViewController {
         static let cellResuseIdentifier = "HomepageCollectionViewCell"
         static let CellTitles = ["Map", "Listings", "Donate", "Contact"]
         static let cellHeight: CGFloat = 100
+        static let webSiteUrl = "https://www.gofundme.com/homelessnomoreapp"
     }
     
     override public func viewDidLoad() {
@@ -48,11 +50,42 @@ private extension HomepageViewController {
         
     }
     
+    func displayWebView(with url: String?) {
+        guard let urlString = url else {
+            return // open an error message
+        }
+        
+        if let url = URL(string: urlString) {
+            let safariViewController = SFSafariViewController(url: url)
+            safariViewController.delegate = self
+            
+            present(safariViewController, animated: true)
+        }
+    }
+    
 }
 
 // MARK : UICollectionViewDelegate
 extension HomepageViewController: UICollectionViewDelegate {
-    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            let viewController = MapViewController()
+            self.navigationController?.pushViewController(viewController, animated: true)
+        case 1:
+            let viewController = ListingsViewController()
+            self.navigationController?.pushViewController(viewController, animated: true)
+        case 2:
+            displayWebView(with: Constants.webSiteUrl)
+        case 3:
+            let viewController = ContactViewController()
+            self.navigationController?.pushViewController(viewController, animated: true)
+        default:
+            let alert = UIAlertController(title: "Could not load page", message: "Please try again", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+        }
+    }
 }
 
 // MARK : UICollectionViewDatasource
@@ -73,4 +106,9 @@ extension HomepageViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.size.width, height: Constants.cellHeight)
     }
+}
+
+// MARK : SafariViewController
+extension HomepageViewController: SFSafariViewControllerDelegate {
+    
 }
