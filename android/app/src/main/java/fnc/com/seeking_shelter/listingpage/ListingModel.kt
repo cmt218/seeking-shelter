@@ -35,8 +35,6 @@ class ListingModel constructor(private val listingPresenter: ListingPresenter) {
             .add(KotlinJsonAdapterFactory())
             .build()
 
-
-
     fun doThing() {
         val listingAdapter = moshi.adapter(ListingResponse::class.java)
         val listing = listingAdapter.fromJson(resJson)
