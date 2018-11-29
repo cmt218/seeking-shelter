@@ -62,6 +62,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mLikelyPlaceAttributions: Array<String?>
     private lateinit var mLikelyPlaceLatLngs: Array<LatLng?>
 
+    private val mapModel = MapModel()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         super.onCreateView(inflater, container, savedInstanceState);
@@ -103,7 +105,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-        /**
+    /**
      * Sets up the options menu.
      * @param menu The options menu.
      * @return Boolean.
@@ -128,6 +130,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap?) {
         mMap = map!!
+
+        val markers = mapModel.fetchPlaces(context)
+        for (marker in markers) {
+            mMap.addMarker(MarkerOptions().position(marker))
+        }
 
         // Use a custom info window adapter to handle multiple lines of text in the
         // info window contents.
@@ -162,8 +169,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         // Get the current location of the device and set the position of the map.
         getDeviceLocation()
     }
-
-
 
 
     /**
@@ -202,8 +207,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     /**
      * Prompts the user for permission to use the device location.
      */
-    private fun getLocationPermission()
-    {
+    private fun getLocationPermission() {
         /*
          * Request location permission, so that we can get the location of the
          * device. The result of the permission request is handled by a callback,
