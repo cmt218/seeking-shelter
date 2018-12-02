@@ -25,9 +25,11 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.places.*
+import fnc.com.seeking_shelter.listingdetailspage.DetailsFragment
 
 
-class MapFragment : Fragment(), OnMapReadyCallback {
+class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+
 
     val TAG = MapFragment::class.java.name
     private lateinit var mMap: GoogleMap
@@ -42,14 +44,14 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
-    private val mDefaultLocation = LatLng(-33.8523341, 151.2106085)
+    private val mDefaultLocation = LatLng(42.3601, 71.0589)
     private val DEFAULT_ZOOM: Float = 15f
     private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
     private var mLocationPermissionGranted = false
 
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
-    private lateinit var mLastKnownLocation: Location
+    private var mLastKnownLocation: Location? = null
 
     // Keys for storing activity state.
     private val KEY_CAMERA_POSITION = "camera_position"
@@ -131,6 +133,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(map: GoogleMap?) {
         mMap = map!!
 
+        mMap.setOnMarkerClickListener(this)
         val markers = mapModel.fetchPlaces(context)
         for (marker in markers) {
             mMap.addMarker(MarkerOptions().position(marker))
@@ -138,27 +141,27 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         // Use a custom info window adapter to handle multiple lines of text in the
         // info window contents.
-        mMap.setInfoWindowAdapter(object : GoogleMap.InfoWindowAdapter {
-
-            override// Return null here, so that getInfoContents() is called next.
-            fun getInfoWindow(arg0: Marker): View? {
-                return null
-            }
-
-            override fun getInfoContents(marker: Marker): View {
-                // Inflate the layouts for the info window, title and snippet.
-                val infoWindow = layoutInflater.inflate(R.layout.custom_info_contents,
-                        map as FrameLayout, false)
-
-                val title = infoWindow.findViewById(R.id.title) as TextView
-                title.text = marker.title
-
-                val snippet = infoWindow.findViewById(R.id.snippet) as TextView
-                snippet.text = marker.snippet
-
-                return infoWindow
-            }
-        })
+//        mMap.setInfoWindowAdapter(object : GoogleMap.InfoWindowAdapter {
+//
+//            override// Return null here, so that getInfoContents() is called next.
+//            fun getInfoWindow(arg0: Marker): View? {
+//                return null
+//            }
+//
+//            override fun getInfoContents(marker: Marker): View {
+//                // Inflate the layouts for the info window, title and snippet.
+//                val infoWindow = layoutInflater.inflate(R.layout.custom_info_contents,
+//                        map as FrameLayout, false)
+//
+//                val title = infoWindow.findViewById(R.id.title) as TextView
+//                title.text = marker.title
+//
+//                val snippet = infoWindow.findViewById(R.id.snippet) as TextView
+//                snippet.text = marker.snippet
+//
+//                return infoWindow
+//            }
+//        })
 
         // Prompt the user for permission.
         getLocationPermission()
@@ -186,9 +189,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     if (task.isSuccessful) {
                         // Set the map's camera position to the current location of the device.
                         mLastKnownLocation = task.result as Location
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                LatLng(mLastKnownLocation.getLatitude(),
-                                        mLastKnownLocation.getLongitude()), DEFAULT_ZOOM))
+                        mLastKnownLocation?.let { mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                                LatLng(it.getLatitude(),
+                                        it.getLongitude()), DEFAULT_ZOOM)) }
+
                     } else {
                         Log.d(TAG, "Current location is null. Using defaults.")
                         Log.e(TAG, "Exception: %s", task.exception)
@@ -368,6 +372,18 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         } catch (e: SecurityException) {
             Log.e("Exception: %s", e.message)
         }
+    }
+
+    override fun onMarkerClick(p0: Marker?): Boolean {
+        changeFragment(DetailsFragment.newInstance())
+        return true
+    }
+
+    fun changeFragment(fragment: Fragment) {
+        fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit()
 
     }
 

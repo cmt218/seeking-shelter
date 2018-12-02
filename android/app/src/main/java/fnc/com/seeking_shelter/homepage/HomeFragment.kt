@@ -32,10 +32,11 @@ class HomeFragment : Fragment() {
     }
 
     fun changeFragment(fragment: Fragment): View.OnClickListener = View.OnClickListener {
-        fragmentManager!!
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit()
+        fragmentManager?.let {
+            it.beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit()
+        }
     }
 }
