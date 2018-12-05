@@ -16,7 +16,7 @@ class MapModel {
             .add(KotlinJsonAdapterFactory())
             .build()
 
-    fun fetchPlaces(context: Context): List<LatLng> {
+    fun fetchPlaces(context: Context): List<ListingResponse> {
         var inputString = ""
         try {
             val inputStream: InputStream = context.assets.open("compressed_locations.json")
@@ -29,14 +29,10 @@ class MapModel {
         val listType = Types.newParameterizedType(List::class.java, ListingResponse::class.java)
         val listingAdapter: JsonAdapter<List<ListingResponse>> = moshi.adapter(listType)
         val listings = listingAdapter.fromJson(inputString)
-
-        val markers: MutableList<LatLng> = mutableListOf()
         listings?.let {
-            for (listing in it) {
-                markers.add(LatLng(listing.latitude.toDouble(), listing.longitude.toDouble()))
-            }
+            return it
         }
-        return markers
+        return mutableListOf()
     }
 
     companion object {

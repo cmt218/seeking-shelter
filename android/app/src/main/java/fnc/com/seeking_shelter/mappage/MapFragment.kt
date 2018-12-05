@@ -18,14 +18,13 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.*
-import android.widget.TextView
-import android.widget.FrameLayout
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.places.*
 import fnc.com.seeking_shelter.listingdetailspage.DetailsFragment
+import fnc.com.seeking_shelter.responses.ListingResponse
 
 
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -124,7 +123,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
      * @return Boolean.
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.getItemId() === R.id.option_get_place) {
+        if (item.getItemId() == R.id.option_get_place) {
             showCurrentPlace()
         }
         return true
@@ -136,7 +135,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         mMap.setOnMarkerClickListener(this)
         val markers = mapModel.fetchPlaces(context)
         for (marker in markers) {
-            mMap.addMarker(MarkerOptions().position(marker))
+            val cur = mMap.addMarker(MarkerOptions().position(LatLng(marker.latitude.toDouble(), marker.longitude.toDouble())))
+            cur.setTag(marker)
         }
 
         // Use a custom info window adapter to handle multiple lines of text in the
@@ -357,9 +357,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
      * Updates the map's UI settings based on whether the user has granted location permission.
      */
     private fun updateLocationUI() {
-        if (mMap == null) {
-            return
-        }
         try {
             if (mLocationPermissionGranted) {
                 mMap.setMyLocationEnabled(true)
@@ -374,8 +371,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         }
     }
 
-    override fun onMarkerClick(p0: Marker?): Boolean {
-        changeFragment(DetailsFragment.newInstance())
+    override fun onMarkerClick(marker: Marker?): Boolean {
+        changeFragment(DetailsFragment.newInstance(marker?.tag as ListingResponse))
         return true
     }
 
