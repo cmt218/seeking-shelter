@@ -63,7 +63,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     private lateinit var mLikelyPlaceAttributions: Array<String?>
     private lateinit var mLikelyPlaceLatLngs: Array<LatLng?>
 
-    private val mapModel = MapModel()
+    private val mapModel = MapModel(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -129,15 +129,18 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         return true
     }
 
+    fun onListingsLoaded(listings: List<ListingResponse>) {
+        for (listing in listings) {
+            val cur = mMap.addMarker(MarkerOptions().position(LatLng(listing.latitude, listing.longitude)))
+            cur.setTag(listing)
+        }
+    }
+
     override fun onMapReady(map: GoogleMap?) {
         mMap = map!!
 
         mMap.setOnMarkerClickListener(this)
-        val markers = mapModel.fetchPlaces(context)
-        for (marker in markers) {
-            val cur = mMap.addMarker(MarkerOptions().position(LatLng(marker.latitude.toDouble(), marker.longitude.toDouble())))
-            cur.setTag(marker)
-        }
+        mapModel.fetchAllPlaces()
 
         // Use a custom info window adapter to handle multiple lines of text in the
         // info window contents.
@@ -378,7 +381,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
 
     fun changeFragment(fragment: Fragment) {
         fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
+                    .add(R.id.fragment_container, fragment)
                     .addToBackStack(null)
                     .commit()
 

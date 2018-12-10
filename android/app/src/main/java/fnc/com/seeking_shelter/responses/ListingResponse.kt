@@ -1,26 +1,26 @@
 package fnc.com.seeking_shelter.responses
 
-import com.squareup.moshi.Json
+import com.google.firebase.firestore.PropertyName
 
 data class ListingResponse(
-        @Json(name="ID") val id: String,
-        @Json(name="Timestamp") val timestamp: String,
-        @Json(name="Open") val isOpen: Boolean,
-        @Json(name="Organization Name") val organizationName: String,
-        @Json(name="Category") val category: String,
-        @Json(name="Tags") val tags: String,
-        @Json(name="Website") val website: String,
-        @Json(name="Phone") val phone: String,
-        @Json(name="Overview") val overview: String,
-        @Json(name="Twitter URL") val twitterUrl: String,
-        @Json(name="Facebook URL") val facebookUrl: String,
-        @Json(name="Instagram URL") val instagramUrl: String,
-        @Json(name="Address") val address: String,
-        @Json(name="City") val city: String,
-        @Json(name="State") val state: String,
-        @Json(name="Zip Code") val zip: String,
-        @Json(name="Country") val country: String,
-        @Json(name="Full Address") val fullAddress: String,
-        @Json(name="Latitude") val latitude: String,
-        @Json(name="Longitude") val longitude: String
+        @PropertyName("ID") val id: Long = 0L,
+        @PropertyName("Timestamp") val timestamp: String = "",
+        @PropertyName("Open") val isOpen: Boolean = false,
+        @PropertyName("organizationname") val organizationName: String = "",
+        @PropertyName("Category") val category: String = "",
+        @PropertyName("Tags") val tags: String = "",
+        @PropertyName("Website") val website: String = "",
+        @PropertyName("Phone") val phone: String = "",
+        @PropertyName("Overview") val overview: String = "",
+        @PropertyName("twitterurl") val twitterUrl: String = "",
+        @PropertyName("facebookurl") val facebookUrl: String = "",
+        @PropertyName("instagramurl") val instagramUrl: String = "",
+        @PropertyName("Address") val address: String = "",
+        @PropertyName("City") val city: String = "",
+        @PropertyName("State") val state: String = "",
+        @PropertyName("zipcode") val zip: String = "",
+        @PropertyName("Country") val country: String = "",
+        @PropertyName("fulladdress") val fullAddress: String = "",
+        @PropertyName("Latitude") val latitude: Double = 0.0,
+        @PropertyName("Longitude") val longitude: Double = 0.0
 )

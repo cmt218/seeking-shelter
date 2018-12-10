@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import fnc.com.seeking_shelter.R
 
 class ListingFragment : Fragment() {
-    private lateinit var listingPresenter: ListingPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.listing_fragment, container, false)
@@ -17,8 +16,6 @@ class ListingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        listingPresenter = ListingPresenter(this)
-        listingPresenter.doThing()
     }
 
     companion object {
