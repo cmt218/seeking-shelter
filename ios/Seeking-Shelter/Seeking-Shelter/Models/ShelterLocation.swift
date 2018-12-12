@@ -6,10 +6,10 @@
 //  Copyright © 2018 Ferguson Watkins. All rights reserved.
 //
 
-import Foundation
 import MapKit
+import FirebaseFirestore
 
-class ShelterLocation: NSObject, Decodable, MKAnnotation {
+class ShelterLocation: NSObject, MKAnnotation {
     let id: Int
     let timeStamp: String?
     let isOpen: Bool
@@ -32,55 +32,83 @@ class ShelterLocation: NSObject, Decodable, MKAnnotation {
     let title: String?
     let subtitle: String?
     
-    enum CodingKeys: String, CodingKey {
-        case id = "ID"
-        case timeStamp = "Timestamp"
-        case isOpen = "Open"
-        case organizationName = "Organization Name"
-        case category = "Category"
-        case tags = "Tags"
-        case website = "Website"
-        case phoneNumber = "Phone"
-        case overview = "Overview"
-        case twitterHandle = "Twitter URL"
-        case facebookUrl = "Facebook URL"
-        case instagramUrl = "Instagram URL"
-        case street = "Address"
-        case city = "City"
-        case state = "State"
-        case zip = "Zip Code"
-        case country = "Country"
-        case fullAddress = "Full Address"
-        case latitude = "Latitude"
-        case longitude = "Longitude"
+    enum Keys {
+        static let id = "ID"
+        static let timeStamp = "Timestamp"
+        static let isOpen = "Open"
+        static let organizationName = "organizationname"
+        static let category = "Category"
+        static let tags = "Tags"
+        static let website = "Website"
+        static let phoneNumber = "Phone"
+        static let overview = "Overview"
+        static let twitterHandle = "twitterurl"
+        static let facebookUrl = "facebookurl"
+        static let instagramUrl = "instagramurl"
+        static let street = "Address"
+        static let city = "City"
+        static let state = "State"
+        static let zip = "zipcode"
+        static let country = "Country"
+        static let fullAddress = "fulladdress"
+        static let latitude = "Latitude"
+        static let longitude = "Longitude"
     }
     
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decode(Int.self, forKey: .id)
-        timeStamp = try values.decode(String.self, forKey: .timeStamp)
-        isOpen = try values.decode(Bool.self, forKey: .isOpen)
-        organizationName = try values.decode(String.self, forKey: .organizationName)
-        category = try values.decode(LocationCategory.self, forKey: .category)
-        let tagsString = try values.decode(String.self, forKey: .tags)
-        tags = tagsString.components(separatedBy: ", ")
-        website = try values.decode(String.self, forKey: .website)
-        phoneNumber = try values.decode(String.self, forKey: .phoneNumber)
-        overview = try values.decode(String.self, forKey: .overview)
-        twitterHandle = try values.decode(String.self, forKey: .twitterHandle)
-        facebookUrl = try values.decode(String.self, forKey: .facebookUrl)
-        instagramUrl = try values.decode(String.self, forKey: .instagramUrl)
-        street = try values.decode(String.self, forKey: .street)
-        city = try values.decode(String.self, forKey: .city)
-        state = try values.decode(String.self, forKey: .state)
-        zip = try values.decode(String.self, forKey: .zip)
-        country = try values.decode(String.self, forKey: .country)
-        fullAddress = try values.decode(String.self, forKey: .fullAddress)
-        let latitude = try values.decode(Float.self, forKey: .latitude)
-        let longitude = try values.decode(Float.self, forKey: .longitude)
+    init(snapshot: QueryDocumentSnapshot) {
+        let data = snapshot.data()
+        id = data[Keys.id] as! Int
+        timeStamp = data[Keys.timeStamp] as? String
+        isOpen = data[Keys.isOpen] as? Bool ?? true
+        organizationName = data[Keys.organizationName] as? String
+        let categoryString = data[Keys.category] as? String
+        self.category = ShelterLocation.getCategory(from: categoryString)
+        let tagsString = data[Keys.tags] as? String
+        tags = tagsString?.components(separatedBy: ", ") ?? []
+        website = data[Keys.website] as? String
+        phoneNumber = data[Keys.phoneNumber] as? String
+        overview = data[Keys.overview] as? String
+        twitterHandle = data[Keys.twitterHandle] as? String
+        facebookUrl = data[Keys.facebookUrl] as? String
+        instagramUrl = data[Keys.instagramUrl] as? String
+        street = data[Keys.street] as? String
+        city = data[Keys.city] as? String
+        state = data[Keys.state] as? String
+        zip = data[Keys.zip] as? String
+        country = data[Keys.country] as? String
+        fullAddress = data[Keys.fullAddress] as? String
+        let latitude = data[Keys.latitude] as? Double ?? 0
+        let longitude = data[Keys.longitude] as? Double ?? 0
         coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees(longitude))
         title = organizationName
         subtitle = category?.rawValue
+    }
+    
+    private static func getCategory(from categoryString: String?) -> LocationCategory {
+        switch categoryString {
+        case "Youth Shelter":
+            return LocationCategory.youthShelter
+        case "Emergency Shelter":
+            return LocationCategory.emergencyShelter
+        case "Women Shelter":
+            return LocationCategory.womenShelter
+        case "Mens Shelter":
+            return LocationCategory.mensShelter
+        case "Family Shelter":
+            return LocationCategory.familyShelter
+        case "Food Banks":
+            return LocationCategory.foodBank
+        case "Medical":
+            return LocationCategory.medical
+        case "Domestic Violence":
+            return LocationCategory.domesticViolence
+        case "Veterans":
+            return LocationCategory.veterans
+        case "Substance Abuse":
+            return LocationCategory.substanceAbuse
+        default:
+            return LocationCategory.other
+        }
     }
 }
 
@@ -96,17 +124,12 @@ enum LocationCategory: String, Decodable {
     case veterans = "Veterans"
     case substanceAbuse = "Substance Abuse"
     case other
-    
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer().decode(String.self)
-        self = LocationCategory(rawValue: container) ?? .other
-    }
 }
 
-struct ShelterLocationsList: Decodable {
+struct ShelterLocationsList {
     let locations: [ShelterLocation]
-
-    enum CodingKeys: CodingKey {
-        case locations
+    
+    init(locations: [ShelterLocation] = []) {
+        self.locations = locations
     }
 }

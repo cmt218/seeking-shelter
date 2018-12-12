@@ -28,7 +28,7 @@ class ContactViewController: UIViewController {
 
 private extension ContactViewController {
     func configureSubviews() {
-        view.backgroundColor = .gray
+        view.backgroundColor = .white
 
     }
     

@@ -14,7 +14,7 @@ public class HomepageViewController: UIViewController {
     
     private enum Constants {
         static let cellResuseIdentifier = "HomepageCollectionViewCell"
-        static let CellTitles = ["Map", "Listings", "Donate", "Contact"]
+        static let CellTitles = ["Map", "Listings", "Contact", "Donate"]
         static let cellHeight: CGFloat = 100
         static let webSiteUrl = "https://www.gofundme.com/homelessnomoreapp"
     }
@@ -38,7 +38,7 @@ private extension HomepageViewController {
     }
     
     func configureSubviews() {
-        view.backgroundColor = .gray
+        view.backgroundColor = .white
         navigationCollectionView.backgroundColor = .clear
         navigationCollectionView.alwaysBounceVertical = true
         navigationCollectionView.delaysContentTouches = false
@@ -76,10 +76,10 @@ extension HomepageViewController: UICollectionViewDelegate {
             let viewController = ListingsViewController()
             self.navigationController?.pushViewController(viewController, animated: true)
         case 2:
-            displayWebView(with: Constants.webSiteUrl)
-        case 3:
             let viewController = ContactViewController()
             self.navigationController?.pushViewController(viewController, animated: true)
+        case 3:
+            displayWebView(with: Constants.webSiteUrl)
         default:
             let alert = UIAlertController(title: "Could not load page", message: "Please try again", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))

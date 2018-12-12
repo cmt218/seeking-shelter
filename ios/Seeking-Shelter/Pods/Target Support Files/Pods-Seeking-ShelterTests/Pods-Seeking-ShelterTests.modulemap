@@ -1,0 +1,6 @@
+framework module Pods_Seeking_ShelterTests {
+  umbrella header "Pods-Seeking-ShelterTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

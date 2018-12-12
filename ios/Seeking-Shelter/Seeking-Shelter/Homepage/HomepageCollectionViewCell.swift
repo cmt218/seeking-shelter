@@ -51,7 +51,6 @@ class HomepageCollectionViewCell: UICollectionViewCell {
 extension HomepageCollectionViewCell {
     func configureSubviews() {
         titleLabel.baselineAdjustment = .alignCenters
-        backgroundColor = .white
         contentStackView.axis = .horizontal
         contentStackView.spacing = Constants.spacing * 2
         

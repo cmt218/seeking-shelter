@@ -13,14 +13,14 @@ class MapViewController: UIViewController {
     
     private let mapView = MKMapView(frame: .zero)
     private var locations: [ShelterLocation] = []
+    private let webService = WebService.shared
     let locationManager = CLLocationManager()
     
     private enum Constants {
-        
+        static let reuseIdentifier = "MKMapViewDefaultAnnotationViewReuseIdentifier"
     }
     
     init() {
-        locations = WebService().getStaticData()?.locations ?? []
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -30,13 +30,15 @@ class MapViewController: UIViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
+        webService.getLocations { [weak self] shelterLocationList in
+            guard let self = self else { return }
+            self.locations = shelterLocationList.locations
+            self.addPoints()
+        }
         getCurrentLocation()
         configureSubviews()
         configureLayout()
         title = "Map"
-        let initialLocation = CLLocation(latitude: 42.3521084, longitude: -71.05913125954545)
-        centerMapOnLocation(location: initialLocation)
-        addPoints()
     }
     
 }
@@ -45,7 +47,7 @@ class MapViewController: UIViewController {
 
 private extension MapViewController {
     func configureSubviews() {
-        view.backgroundColor = .gray
+        mapView.delegate = self
         view.addSubview(mapView)
     }
     
@@ -59,7 +61,9 @@ private extension MapViewController {
         ])
     }
     
-    func centerMapOnLocation(location: CLLocation) {
+    func centerMapOnLocation(location: CLLocation?) {
+        //let location = location ?? CLLocation(latitude: 42.3521084, longitude: -71.05913125954545) // Boston
+        let location = CLLocation(latitude: 42.3521084, longitude: -71.05913125954545)
         let regionRadius: CLLocationDistance = 1000
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
@@ -71,17 +75,32 @@ private extension MapViewController {
     
     func getCurrentLocation() {
         locationManager.requestWhenInUseAuthorization()
+        mapView.showsUserLocation = true
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
+        centerMapOnLocation(location: locationManager.location)
     }
 }
 
+// MARK: - CLLocationManagerDelegate
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        getCurrentLocation()
+    }
+    
+}
+
+// MARK: - MKMapViewDelegate
+extension MapViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let tag = view.annotation as? ShelterLocation else {
+            print("Could not convert tag to location")
+            return
+        }
+        let locationDetailPageViewController = LocationDetailPageViewController(with: tag)
+        navigationController?.pushViewController(locationDetailPageViewController, animated: true)
     }
 }

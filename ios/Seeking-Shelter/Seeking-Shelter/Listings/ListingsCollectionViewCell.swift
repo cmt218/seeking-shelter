@@ -51,7 +51,6 @@ class ListingsCollectionViewCell: UICollectionViewCell {
 extension ListingsCollectionViewCell {
     func configureSubviews() {
         titleLabel.baselineAdjustment = .alignCenters
-        backgroundColor = .white
         contentStackView.axis = .horizontal
         contentStackView.spacing = Constants.spacing * 2
         
