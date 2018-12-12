@@ -1,10 +1,12 @@
-package fnc.com.seeking_shelter.mappage
+package fnc.com.seeking_shelter.model
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
+import fnc.com.seeking_shelter.ListingDataFragmentContract
+import fnc.com.seeking_shelter.mappage.MapFragment
 import fnc.com.seeking_shelter.responses.ListingResponse
 
-class MapModel (val fragment: MapFragment){
+class Model (val fragment: ListingDataFragmentContract.CanGetListings){
 
     val db = FirebaseFirestore.getInstance()
 
@@ -13,7 +15,6 @@ class MapModel (val fragment: MapFragment){
         db.collection(COLLECTION_PATH)
                 .get()
                 .addOnSuccessListener { documents ->
-                    Log.d("", documents.toString())
                     for (document in documents) {
                         listings.add(document.toObject(ListingResponse::class.java))
                     }
@@ -25,7 +26,7 @@ class MapModel (val fragment: MapFragment){
     }
 
     companion object {
-        val TAG = MapModel::class.qualifiedName
+        val TAG = Model::class.qualifiedName
         const val COLLECTION_PATH = "data"
     }
 }

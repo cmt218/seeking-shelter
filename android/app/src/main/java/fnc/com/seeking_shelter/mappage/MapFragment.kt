@@ -23,11 +23,13 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.places.*
+import fnc.com.seeking_shelter.ListingDataFragmentContract
 import fnc.com.seeking_shelter.listingdetailspage.DetailsFragment
+import fnc.com.seeking_shelter.model.Model
 import fnc.com.seeking_shelter.responses.ListingResponse
 
 
-class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener, ListingDataFragmentContract.CanGetListings {
 
 
     val TAG = MapFragment::class.java.name
@@ -63,7 +65,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     private lateinit var mLikelyPlaceAttributions: Array<String?>
     private lateinit var mLikelyPlaceLatLngs: Array<LatLng?>
 
-    private val mapModel = MapModel(this)
+    private val mapModel = Model(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -129,7 +131,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         return true
     }
 
-    fun onListingsLoaded(listings: List<ListingResponse>) {
+    override fun onListingsLoaded(listings: List<ListingResponse>) {
         for (listing in listings) {
             val cur = mMap.addMarker(MarkerOptions().position(LatLng(listing.latitude, listing.longitude)))
             cur.setTag(listing)
