@@ -3,7 +3,6 @@ package fnc.com.seeking_shelter.mappage
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.location.Location;
-import android.support.v7.app.AlertDialog
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -11,7 +10,6 @@ import fnc.com.seeking_shelter.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.LatLng
-import android.content.DialogInterface
 import com.google.android.gms.tasks.OnCompleteListener
 import android.content.pm.PackageManager
 import android.support.v4.app.ActivityCompat
@@ -31,8 +29,6 @@ import fnc.com.seeking_shelter.responses.ListingResponse
 
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener, ListingDataFragmentContract.CanGetListings {
 
-
-    val TAG = MapFragment::class.java.name
     private lateinit var mMap: GoogleMap
     private lateinit var mCameraPosition: CameraPosition
 
@@ -57,13 +53,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     // Keys for storing activity state.
     private val KEY_CAMERA_POSITION = "camera_position"
     private val KEY_LOCATION = "location"
-
-    // Used for selecting the current place.
-    private val M_MAX_ENTRIES = 5
-    private lateinit var mLikelyPlaceNames: Array<String?>
-    private lateinit var mLikelyPlaceAddresses: Array<String?>
-    private lateinit var mLikelyPlaceAttributions: Array<String?>
-    private lateinit var mLikelyPlaceLatLngs: Array<LatLng?>
 
     private val mapModel = Model(this)
 
@@ -117,18 +106,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.current_place_menu, menu);
         super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    /**
-     * Handles a click on the menu option to get a place.
-     * @param item The menu item to handle.
-     * @return Boolean.
-     */
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.getItemId() == R.id.option_get_place) {
-            showCurrentPlace()
-        }
-        return true
     }
 
     override fun onListingsLoaded(listings: List<ListingResponse>) {
@@ -234,7 +211,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         }
     }
 
-
     /**
      * Handles the result of the request for location permissions.
      */
@@ -251,111 +227,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
             }
         }
         updateLocationUI()
-    }
-
-    /**
-     * Prompts the user to select the current place from a list of likely places, and shows the
-     * current place on the map - provided the user has granted location permission.
-     */
-    private fun showCurrentPlace() {
-        if (mMap == null) {
-            return
-        }
-
-        if (mLocationPermissionGranted) {
-            // Get the likely places - that is, the businesses and other points of interest that
-            // are the best match for the device's current location.
-            val placeResult = mPlaceDetectionClient.getCurrentPlace(null)
-            placeResult.addOnCompleteListener(OnCompleteListener<PlaceLikelihoodBufferResponse> { task ->
-                if (task.isSuccessful && task.result != null) {
-                    val likelyPlaces = task.result
-
-                    // Set the count, handling cases where less than 5 entries are returned.
-                    val count: Int
-                    if (likelyPlaces!!.count < M_MAX_ENTRIES) {
-                        count = likelyPlaces.count
-                    } else {
-                        count = M_MAX_ENTRIES
-                    }
-
-                    var i = 0
-                    mLikelyPlaceNames = arrayOfNulls<String>(count)
-                    mLikelyPlaceNames = arrayOfNulls<String>(count)
-                    mLikelyPlaceAddresses = arrayOfNulls<String>(count)
-                    mLikelyPlaceAttributions = arrayOfNulls<String>(count)
-                    mLikelyPlaceLatLngs = arrayOfNulls<LatLng>(count)
-
-                    for (placeLikelihood in likelyPlaces) {
-                        // Build a list of likely places to show the user.
-                        mLikelyPlaceNames[i] = placeLikelihood.place.name as String
-                        mLikelyPlaceAddresses[i] = placeLikelihood.place
-                                .address as String?
-                        mLikelyPlaceAttributions[i] = placeLikelihood.place
-                                .attributions as String?
-                        mLikelyPlaceLatLngs[i] = placeLikelihood.place.latLng
-
-                        i++
-                        if (i > count - 1) {
-                            break
-                        }
-                    }
-
-                    // Release the place likelihood buffer, to avoid memory leaks.
-                    likelyPlaces.release()
-
-                    // Show a dialog offering the user the list of likely places, and add a
-                    // marker at the selected place.
-                    openPlacesDialog()
-
-                } else {
-                    Log.e(TAG, "Exception: %s", task.exception)
-                }
-            })
-        } else {
-            // The user has not granted permission.
-            Log.i(TAG, "The user did not grant location permission.")
-
-            // Add a default marker, because the user hasn't selected a place.
-            mMap.addMarker(MarkerOptions()
-                    .title("title")
-                    .position(mDefaultLocation)
-                    .snippet("info snippet"))
-
-            // Prompt the user for permission.
-            getLocationPermission()
-        }
-    }
-
-    /**
-     * Displays a form allowing the user to select a place from a list of likely places.
-     */
-    private fun openPlacesDialog() {
-        // Ask the user to choose the place where they are now.
-        val listener = DialogInterface.OnClickListener { dialog, which ->
-            // The "which" argument contains the position of the selected item.
-            val markerLatLng = mLikelyPlaceLatLngs[which]
-            var markerSnippet = mLikelyPlaceAddresses[which]
-            if (mLikelyPlaceAttributions[which] != null) {
-                markerSnippet = markerSnippet + "\n" + mLikelyPlaceAttributions[which]
-            }
-
-            // Add a marker for the selected place, with an info window
-            // showing information about that place.
-            mMap.addMarker(MarkerOptions()
-                    .title(mLikelyPlaceNames[which])
-                    .position(markerLatLng!!)
-                    .snippet(markerSnippet))
-
-            // Position the map's camera at the location of the marker.
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerLatLng,
-                    DEFAULT_ZOOM))
-        }
-
-        // Display the dialog.
-        val dialog = AlertDialog.Builder(context)
-                .setTitle("pick place")
-                .setItems(mLikelyPlaceNames, listener)
-                .show()
     }
 
     /**
@@ -390,6 +261,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     }
 
     companion object {
+        val TAG = MapFragment::class.java.name
+
         @JvmStatic
         fun newInstance(): MapFragment {
             return MapFragment()
