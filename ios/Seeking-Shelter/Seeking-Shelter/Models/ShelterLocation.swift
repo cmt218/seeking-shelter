@@ -72,7 +72,8 @@ class ShelterLocation: NSObject, MKAnnotation {
         facebookUrl = data[Keys.facebookUrl] as? String
         instagramUrl = data[Keys.instagramUrl] as? String
         street = data[Keys.street] as? String
-        city = data[Keys.city] as? String
+        let locationCity = data[Keys.city] as? String ?? ""
+        city = locationCity.isEmpty ? "Other" : locationCity
         state = data[Keys.state] as? String
         zip = data[Keys.zip] as? String
         country = data[Keys.country] as? String

@@ -14,7 +14,7 @@ public class HomepageViewController: UIViewController {
     
     private enum Constants {
         static let cellResuseIdentifier = "HomepageCollectionViewCell"
-        static let CellTitles = ["Map", "Listings", "Contact", "Donate"]
+        static let CellTitles = ["Near Me", "Our Cities", "Contact Us", "Donate"]
         static let cellHeight: CGFloat = 100
         static let webSiteUrl = "https://www.gofundme.com/homelessnomoreapp"
     }
@@ -38,7 +38,7 @@ private extension HomepageViewController {
     }
     
     func configureSubviews() {
-        view.backgroundColor = .white
+        view.backgroundColor = Colors.backgroundColor
         navigationCollectionView.backgroundColor = .clear
         navigationCollectionView.alwaysBounceVertical = true
         navigationCollectionView.delaysContentTouches = false
@@ -73,7 +73,7 @@ extension HomepageViewController: UICollectionViewDelegate {
             let viewController = MapViewController()
             self.navigationController?.pushViewController(viewController, animated: true)
         case 1:
-            let viewController = ListingsViewController()
+            let viewController = CitiesViewController()
             self.navigationController?.pushViewController(viewController, animated: true)
         case 2:
             let viewController = ContactViewController()

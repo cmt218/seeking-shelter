@@ -27,6 +27,9 @@
 		0DA671BD218E4A0B00F92095 /* CompressedLocationList.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DA671BC218E4A0B00F92095 /* CompressedLocationList.json */; };
 		0DB242B921B4685C00D4D8A8 /* ListingCollectionViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB242B821B4685C00D4D8A8 /* ListingCollectionViewHeaderCell.swift */; };
 		0DB242BB21C08F0C00D4D8A8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0DB242BA21C08F0C00D4D8A8 /* GoogleService-Info.plist */; };
+		0DF47F0121C9C7C5007E9A6B /* CitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF47F0021C9C7C5007E9A6B /* CitiesViewController.swift */; };
+		0DF47F0521C9D338007E9A6B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF47F0421C9D338007E9A6B /* Colors.swift */; };
+		0DF47F0721C9E153007E9A6B /* UIStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF47F0621C9E153007E9A6B /* UIStyles.swift */; };
 		106D65872E1C2CD6ABF9FEC4 /* Pods_Seeking_Shelter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 761CF887C9B3EFFBDEF60321 /* Pods_Seeking_Shelter.framework */; };
 		3051BB0B76CED4059E31937A /* Pods_Seeking_ShelterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C6701FCEB36BB22B734524 /* Pods_Seeking_ShelterUITests.framework */; };
 		6239C503B81C0F944252EA90 /* Pods_Seeking_ShelterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EB4D1C058945E461D317DAA /* Pods_Seeking_ShelterTests.framework */; };
@@ -76,6 +79,9 @@
 		0DA671BC218E4A0B00F92095 /* CompressedLocationList.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CompressedLocationList.json; sourceTree = "<group>"; };
 		0DB242B821B4685C00D4D8A8 /* ListingCollectionViewHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingCollectionViewHeaderCell.swift; sourceTree = "<group>"; };
 		0DB242BA21C08F0C00D4D8A8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0DF47F0021C9C7C5007E9A6B /* CitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewController.swift; sourceTree = "<group>"; };
+		0DF47F0421C9D338007E9A6B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		0DF47F0621C9E153007E9A6B /* UIStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStyles.swift; sourceTree = "<group>"; };
 		1A52A571837615A4D9E21D84 /* Pods-Seeking-ShelterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeking-ShelterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Seeking-ShelterTests/Pods-Seeking-ShelterTests.release.xcconfig"; sourceTree = "<group>"; };
 		3DF06404E9C6B68E1D32B3D3 /* Pods-Seeking-ShelterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeking-ShelterUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Seeking-ShelterUITests/Pods-Seeking-ShelterUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		56C6701FCEB36BB22B734524 /* Pods_Seeking_ShelterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Seeking_ShelterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,9 +140,9 @@
 		0D04D41D2178189800268D70 /* Listings */ = {
 			isa = PBXGroup;
 			children = (
+				0DF47F0221C9C7D0007E9A6B /* Views */,
+				0DF47F0021C9C7C5007E9A6B /* CitiesViewController.swift */,
 				0D04D41E217818AF00268D70 /* ListingsViewController.swift */,
-				0D04D42B21815A9500268D70 /* ListingsCollectionViewCell.swift */,
-				0DB242B821B4685C00D4D8A8 /* ListingCollectionViewHeaderCell.swift */,
 			);
 			path = Listings;
 			sourceTree = "<group>";
@@ -200,6 +206,7 @@
 		0D8AE690216AAA98006F38E0 /* Seeking-Shelter */ = {
 			isa = PBXGroup;
 			children = (
+				0DF47F0321C9D32C007E9A6B /* Styles */,
 				0D04D423217B808000268D70 /* Models */,
 				0D04D420217B800200268D70 /* Services */,
 				0D04D41C217817DA00268D70 /* Map */,
@@ -243,6 +250,24 @@
 				0D04D4112176A73500268D70 /* HomepageCollectionViewCell.swift */,
 			);
 			path = Homepage;
+			sourceTree = "<group>";
+		};
+		0DF47F0221C9C7D0007E9A6B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0D04D42B21815A9500268D70 /* ListingsCollectionViewCell.swift */,
+				0DB242B821B4685C00D4D8A8 /* ListingCollectionViewHeaderCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0DF47F0321C9D32C007E9A6B /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				0DF47F0421C9D338007E9A6B /* Colors.swift */,
+				0DF47F0621C9E153007E9A6B /* UIStyles.swift */,
+			);
+			path = Styles;
 			sourceTree = "<group>";
 		};
 		93ECDC58CD649E7D58F4C0A8 /* Frameworks */ = {
@@ -448,6 +473,12 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Seeking-Shelter/Pods-Seeking-Shelter-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework",
+				"${BUILT_PRODUCTS_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework",
+				"${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework",
+				"${BUILT_PRODUCTS_DIR}/MotionAnimator/MotionAnimator.framework",
+				"${BUILT_PRODUCTS_DIR}/MotionInterchange/MotionInterchange.framework",
+				"${BUILT_PRODUCTS_DIR}/MotionTransitioning/MotionTransitioning.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
@@ -460,6 +491,12 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFInternationalization.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFTextAccessibility.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialComponents.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionAnimator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionInterchange.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionTransitioning.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
@@ -506,7 +543,10 @@
 				0D8AE6C1216AACD8006F38E0 /* HomepageViewController.swift in Sources */,
 				0D04D42C21815A9500268D70 /* ListingsCollectionViewCell.swift in Sources */,
 				0D5FA186218F6918006B57FA /* LocationDetailPageViewController.swift in Sources */,
+				0DF47F0521C9D338007E9A6B /* Colors.swift in Sources */,
 				0D04D41F217818AF00268D70 /* ListingsViewController.swift in Sources */,
+				0DF47F0121C9C7C5007E9A6B /* CitiesViewController.swift in Sources */,
+				0DF47F0721C9E153007E9A6B /* UIStyles.swift in Sources */,
 				0DB242B921B4685C00D4D8A8 /* ListingCollectionViewHeaderCell.swift in Sources */,
 				0D04D4122176A73500268D70 /* HomepageCollectionViewCell.swift in Sources */,
 			);
@@ -686,6 +726,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Seeking-Shelter/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -704,6 +745,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Seeking-Shelter/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

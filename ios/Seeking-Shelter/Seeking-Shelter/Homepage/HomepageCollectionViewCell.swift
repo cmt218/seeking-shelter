@@ -6,10 +6,10 @@
 //  Copyright © 2018 Ferguson Watkins. All rights reserved.
 //
 
-import Foundation
 import UIKit
+import MaterialComponents.MaterialCards
 
-class HomepageCollectionViewCell: UICollectionViewCell {
+class HomepageCollectionViewCell: MDCCardCollectionCell {
     private enum Constants {
         static let spacing: CGFloat = 8.0
     }
@@ -58,6 +58,8 @@ extension HomepageCollectionViewCell {
         
         titleLabel.font = UIFont.boldSystemFont(ofSize: 64.0)
         contentStackView.addArrangedSubview(titleLabel)
+        
+        applyTableCellStyle()
     }
     
     func configureLayout() {

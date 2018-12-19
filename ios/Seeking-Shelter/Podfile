@@ -8,6 +8,7 @@ target 'Seeking-Shelter' do
   # Pods for Seeking-Shelter
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
+  pod 'MaterialComponents'
   
   target 'Seeking-ShelterTests' do
     inherit! :search_paths
