@@ -1,4 +1,4 @@
-package fnc.com.seeking_shelter
+package fnc.com.seeking_shelter.model
 
 import fnc.com.seeking_shelter.responses.ListingResponse
 
