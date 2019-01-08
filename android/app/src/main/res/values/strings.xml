@@ -3,6 +3,9 @@
     <string name="cities">Cities</string>
     <string name="contact">Contact</string>
     <string name="donate">Donate</string>
+    <string name="donate_url">https://www.gofundme.com/homelessnomoreapp</string>
     <string name="listings">Listings</string>
     <string name="map">Map</string>
+    <string name="site_email">seekingshelter24@gmail.com</string>
+    <string name="site_url">https://www.seekingshelter.net/</string>
 </resources>
