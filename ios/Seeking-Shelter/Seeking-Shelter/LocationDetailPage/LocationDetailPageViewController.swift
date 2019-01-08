@@ -74,8 +74,10 @@ final class LocationDetailPageViewController: UIViewController {
         configureSubviews()
         configureLayout()
         applyLocation()
-        view.backgroundColor = .white
+        view.backgroundColor = Colors.backgroundColor
         title = location.organizationName
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(goBack))
     }
     
 }
@@ -115,5 +117,9 @@ extension LocationDetailPageViewController {
         addressLabel.text = location.fullAddress
         phoneLabel.text = location.phoneNumber
         descriptionLabel.text = location.overview
+    }
+    
+    @objc func goBack() {
+        dismiss(animated: true)
     }
 }

@@ -99,7 +99,8 @@ extension ListingsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let location = locations[indexPath.row]
         let locationDetailPageViewController = LocationDetailPageViewController(with: location)
-        navigationController?.pushViewController(locationDetailPageViewController, animated: true)
+        let navController = UINavigationController(rootViewController: locationDetailPageViewController)
+        self.present(navController, animated: true)
     }
 }
 

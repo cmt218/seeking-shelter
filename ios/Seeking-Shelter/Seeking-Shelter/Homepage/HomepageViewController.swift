@@ -24,6 +24,7 @@ public class HomepageViewController: UIViewController {
         registerCells()
         configureSubviews()
         configureLayout()
+        title = "Seeking Shelter"
         let layout = navigationCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.estimatedItemSize = CGSize(width: navigationCollectionView.frame.width, height: Constants.cellHeight)
     }

@@ -56,7 +56,7 @@ extension HomepageCollectionViewCell {
         
         contentView.addSubview(contentStackView)
         
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 64.0)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 50.0)
         contentStackView.addArrangedSubview(titleLabel)
         
         applyTableCellStyle()
