@@ -1,0 +1,6 @@
+framework module Pods_Seeking_Shelter {
+  umbrella header "Pods-Seeking-Shelter-umbrella.h"
+
+  export *
+  module * { export * }
+}
