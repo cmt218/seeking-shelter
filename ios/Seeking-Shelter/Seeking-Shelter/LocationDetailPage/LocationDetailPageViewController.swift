@@ -33,12 +33,12 @@ final class LocationDetailPageViewController: UIViewController {
         return label
     }()
     
-    private let phoneLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.font = .boldSystemFont(ofSize: 16)
-        label.textColor = .black
-        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
-        return label
+    private let phoneButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.setContentHuggingPriority(.defaultHigh, for: .vertical)
+//        button.titleLabel?.font = .boldSystemFont(ofSize: 16)
+//        button.setTitleColor(.black, for: .normal)
+        return button
     }()
     
     private let descriptionLabel: UILabel = {
@@ -76,20 +76,19 @@ final class LocationDetailPageViewController: UIViewController {
         applyLocation()
         view.backgroundColor = Colors.backgroundColor
         title = location.organizationName
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(goBack))
+        phoneButton.addTarget(self, action: #selector(callPhoneNumber), for: .primaryActionTriggered)
     }
     
 }
 
 // MARK: - Private
 
-extension LocationDetailPageViewController {
+private extension LocationDetailPageViewController {
     func configureSubviews() {
         view.addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(addressLabel)
-        stackView.addArrangedSubview(phoneLabel)
+        stackView.addArrangedSubview(phoneButton)
         stackView.addArrangedSubview(descriptionLabel)
     }
     
@@ -109,17 +108,31 @@ extension LocationDetailPageViewController {
                 stackView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: Constants.sideInsets)
             ])
         }
-
     }
     
     func applyLocation() {
         titleLabel.text = location.organizationName
         addressLabel.text = location.fullAddress
-        phoneLabel.text = location.phoneNumber
         descriptionLabel.text = location.overview
+        if let phoneNumber = location.phoneNumber {
+            let attributes = [
+                NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16.0),
+                NSAttributedString.Key.foregroundColor : UIColor.blue,
+                NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue
+                ] as [NSAttributedString.Key : Any]
+            let phoneNumber = NSAttributedString(string: phoneNumber, attributes: attributes)
+            phoneButton.setAttributedTitle(phoneNumber, for: .normal)
+        }
     }
     
-    @objc func goBack() {
-        dismiss(animated: true)
+    @objc func callPhoneNumber() {
+        let phoneNumber = location.phoneNumber?.filter{ return "0123456789".contains($0) }
+        if let url = URL(string: "tel://\(phoneNumber ?? "")"), UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
     }
 }

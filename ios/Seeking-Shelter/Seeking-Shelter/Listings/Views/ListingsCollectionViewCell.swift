@@ -13,6 +13,8 @@ import MaterialComponents.MaterialCards
 class ListingsCollectionViewCell: MDCCardCollectionCell {
     private enum Constants {
         static let spacing: CGFloat = 8.0
+        static let rightChevron = "right-chevron"
+        static let chevronWidth: CGFloat = 16
     }
     
     struct ViewModel {
@@ -21,6 +23,12 @@ class ListingsCollectionViewCell: MDCCardCollectionCell {
     
     private let contentStackView = UIStackView(frame: .zero)
     private let titleLabel = UILabel(frame: .zero)
+    private let chevronView: UIImageView = {
+        let view = UIImageView(frame: .zero)
+        view.image = UIImage.init(imageLiteralResourceName: Constants.rightChevron)
+        view.contentMode = .scaleAspectFit
+        return view
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -54,12 +62,14 @@ extension ListingsCollectionViewCell {
         titleLabel.baselineAdjustment = .alignCenters
         contentStackView.axis = .horizontal
         contentStackView.spacing = Constants.spacing * 2
+        contentStackView.distribution = .fillProportionally
         
         contentView.addSubview(contentStackView)
         
         titleLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
-        titleLabel.numberOfLines = 0
+        titleLabel.numberOfLines = 1
         contentStackView.addArrangedSubview(titleLabel)
+        contentStackView.addArrangedSubview(chevronView)
         
         applyTableCellStyle()
     }
@@ -67,10 +77,13 @@ extension ListingsCollectionViewCell {
     func configureLayout() {
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            chevronView.widthAnchor.constraint(equalToConstant: 10),
+            chevronView.heightAnchor.constraint(equalToConstant: 16),
+            
             contentStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.spacing),
             contentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.spacing),
             contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.spacing),
-            contentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.spacing),
+            contentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.spacing)
         ])
     }
 }

@@ -15,7 +15,7 @@ class ListingsViewController: UIViewController {
         static let cellReuseIdentifier = "ListingsCollectionViewCell"
         static let cellHeight: CGFloat = 30
         static let cellWidth: CGFloat = 300
-        static let collectionViewInset = UIEdgeInsets(top: 16, left: 16, bottom: 0, right: -16)
+        static let collectionViewInset = UIEdgeInsets(top: 16, left: 8, bottom: 0, right: -8)
     }
     
     private let collectionView: UICollectionView
@@ -63,10 +63,12 @@ private extension ListingsViewController {
     }
     
     func configureLayout() {
+        collectionView.contentInset.top = Constants.collectionViewInset.top
+        
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: Constants.collectionViewInset.top),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: Constants.collectionViewInset.bottom),
+            collectionView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Constants.collectionViewInset.right),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.collectionViewInset.left)
         ])
@@ -99,8 +101,9 @@ extension ListingsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let location = locations[indexPath.row]
         let locationDetailPageViewController = LocationDetailPageViewController(with: location)
-        let navController = UINavigationController(rootViewController: locationDetailPageViewController)
-        self.present(navController, animated: true)
+        //let navController = UINavigationController(rootViewController: locationDetailPageViewController)
+        navigationController?.pushViewController(locationDetailPageViewController, animated: true)
+        //self.present(navController, animated: true)
     }
 }
 
