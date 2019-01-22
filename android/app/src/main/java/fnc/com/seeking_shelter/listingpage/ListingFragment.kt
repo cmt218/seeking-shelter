@@ -31,7 +31,11 @@ class ListingFragment : Fragment(), ListingDataFragmentContract.CanGetListings {
     }
 
     override fun onListingsLoaded(listings: List<ListingResponse>) {
-        val cityListings = if(city == "Other") {listings.filter { it.city.isEmpty() }} else {listings.filter { it.city == city }}
+        val cityListings = if (city == "Other") {
+            listings.filter { it.city.isEmpty() }
+        } else {
+            listings.filter { it.city == city }
+        }
         viewManager = LinearLayoutManager(context)
         viewAdapter = ListingAdapter(cityListings, ListingAdapter.ORGANIZATION_NAME) { this.changeFragment(DetailsFragment.newInstance(it)) }
 
@@ -40,7 +44,7 @@ class ListingFragment : Fragment(), ListingDataFragmentContract.CanGetListings {
             layoutManager = viewManager
             adapter = viewAdapter
         }
-        title.text = getString(R.string.listings)
+        title.text = city
         loading_spinner.visibility = View.GONE
     }
 

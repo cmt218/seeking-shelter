@@ -1,11 +1,21 @@
 <resources>
     <string name="app_name">seeking-shelter</string>
+    <string name="call">Call</string>
     <string name="cities">Cities</string>
-    <string name="contact">Contact</string>
+    <string name="contact">Contact Us</string>
+    <string name="directions">Directions</string>
     <string name="donate">Donate</string>
     <string name="donate_url">https://www.gofundme.com/homelessnomoreapp</string>
-    <string name="listings">Listings</string>
-    <string name="map">Map</string>
+    <string name="email">Email Us</string>
+    <string name="email_subject">Inquiry From Seeking Shelter Android App</string>
+    <string name="facebook_url">https://www.facebook.com/Seeking-Shelter-1802391203381676/</string>
+    <string name="info_window_prompt">Click window to view details</string>
+    <string name="instagram_url">https://www.instagram.com/seekingshelter24/</string>
+    <string name="listings">Our Cities</string>
+    <string name="map">Near Me</string>
     <string name="site_email">seekingshelter24@gmail.com</string>
     <string name="site_url">https://www.seekingshelter.net/</string>
+    <string name="visit_facebook">Visit Facebook</string>
+    <string name="visit_instagram">Visit Instagram</string>
+    <string name="visit_website">Visit Website</string>
 </resources>
