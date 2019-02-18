@@ -38,6 +38,7 @@ class MapViewController: UIViewController {
         getCurrentLocation()
         configureSubviews()
         configureLayout()
+        centerMapOnLocation(location: locationManager.location)
         title = "Map"
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(goBack))
     }
@@ -63,8 +64,8 @@ private extension MapViewController {
     }
     
     func centerMapOnLocation(location: CLLocation?) {
-        //let location = location ?? CLLocation(latitude: 42.3521084, longitude: -71.05913125954545) // Boston
-        let location = CLLocation(latitude: 42.3521084, longitude: -71.05913125954545)
+        let location = location ?? CLLocation(latitude: 42.3521084, longitude: -71.05913125954545) // Boston
+        //let location = CLLocation(latitude: 42.3521084, longitude: -71.05913125954545)
         let regionRadius: CLLocationDistance = 1000
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
@@ -82,7 +83,6 @@ private extension MapViewController {
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
-        centerMapOnLocation(location: locationManager.location)
     }
     
     @objc func goBack() {

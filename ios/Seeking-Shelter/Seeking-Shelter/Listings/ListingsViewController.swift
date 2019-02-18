@@ -26,7 +26,7 @@ class ListingsViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.estimatedItemSize = CGSize(width: Constants.cellWidth, height: Constants.cellHeight)
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        self.locations = locations ?? []
+        self.locations = (locations ?? []).filter( {$0.overview != nil && $0.overview != ""} )
         self.city = city ?? "Locations"
         super.init(nibName: nil, bundle: nil)
     }

@@ -10,18 +10,12 @@ import MapKit
 import FirebaseFirestore
 
 class ShelterLocation: NSObject, MKAnnotation {
-    let id: Int
     let timeStamp: String?
-    let isOpen: Bool
     let organizationName: String?
     let category: LocationCategory?
-    let tags: [String?]
     let website: String?
     let phoneNumber: String?
     let overview: String?
-    let twitterHandle: String?
-    let facebookUrl: String?
-    let instagramUrl: String?
     let street: String?
     let city: String?
     let state: String?
@@ -33,18 +27,12 @@ class ShelterLocation: NSObject, MKAnnotation {
     let subtitle: String?
     
     enum Keys {
-        static let id = "ID"
         static let timeStamp = "Timestamp"
-        static let isOpen = "Open"
         static let organizationName = "organizationname"
         static let category = "Category"
-        static let tags = "Tags"
         static let website = "Website"
         static let phoneNumber = "Phone"
         static let overview = "Overview"
-        static let twitterHandle = "twitterurl"
-        static let facebookUrl = "facebookurl"
-        static let instagramUrl = "instagramurl"
         static let street = "Address"
         static let city = "City"
         static let state = "State"
@@ -57,30 +45,23 @@ class ShelterLocation: NSObject, MKAnnotation {
     
     init(snapshot: QueryDocumentSnapshot) {
         let data = snapshot.data()
-        id = data[Keys.id] as! Int
         timeStamp = data[Keys.timeStamp] as? String
-        isOpen = data[Keys.isOpen] as? Bool ?? true
-        organizationName = data[Keys.organizationName] as? String
+        organizationName = (data[Keys.organizationName] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines)
         let categoryString = data[Keys.category] as? String
         self.category = ShelterLocation.getCategory(from: categoryString)
-        let tagsString = data[Keys.tags] as? String
-        tags = tagsString?.components(separatedBy: ", ") ?? []
         website = data[Keys.website] as? String
         phoneNumber = data[Keys.phoneNumber] as? String
         overview = data[Keys.overview] as? String
-        twitterHandle = data[Keys.twitterHandle] as? String
-        facebookUrl = data[Keys.facebookUrl] as? String
-        instagramUrl = data[Keys.instagramUrl] as? String
         street = data[Keys.street] as? String
         let locationCity = data[Keys.city] as? String ?? ""
-        city = locationCity.isEmpty ? "Other" : locationCity
+        city = (locationCity.isEmpty ? "Other" : locationCity).trimmingCharacters(in: .whitespacesAndNewlines)
         state = data[Keys.state] as? String
         zip = data[Keys.zip] as? String
         country = data[Keys.country] as? String
         fullAddress = data[Keys.fullAddress] as? String
-        let latitude = data[Keys.latitude] as? Double ?? 0
-        let longitude = data[Keys.longitude] as? Double ?? 0
-        coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees(longitude))
+        let latitude = Double(data[Keys.latitude] as? String ?? "0")
+        let longitude = Double(data[Keys.longitude] as? String ?? "0")
+        coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude ?? 0), longitude: CLLocationDegrees(longitude ?? 0))
         title = organizationName
         subtitle = category?.rawValue
     }
@@ -116,15 +97,15 @@ class ShelterLocation: NSObject, MKAnnotation {
 enum LocationCategory: String, Decodable {
     case youthShelter = "Youth Shelter"
     case emergencyShelter = "Emergency Shelter"
-    case womenShelter = "Women Shelter"
-    case mensShelter = "Mens Shelter"
+    case womenShelter = "Women's Shelter"
+    case mensShelter = "Men's Shelter"
     case familyShelter = "Family Shelter"
-    case foodBank = "Food Banks"
-    case medical = "Medical"
-    case domesticViolence = "Domestic Violence"
-    case veterans = "Veterans"
-    case substanceAbuse = "Substance Abuse"
-    case other
+    case foodBank = "Food Bank"
+    case medical = "Medical Resources"
+    case domesticViolence = "Domestic Violence Resources"
+    case veterans = "Veterans' Aid"
+    case substanceAbuse = "Substance Abuse Resources"
+    case other = "Other Resources"
 }
 
 struct ShelterLocationsList {

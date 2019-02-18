@@ -8,37 +8,32 @@
 
 import Foundation
 import UIKit
+import CoreLocation
+import MaterialComponents.MDCButton
 
 final class LocationDetailPageViewController: UIViewController {
     private enum Constants {
         static let sideInsets: CGFloat = 24
         static let spacing: CGFloat = 16
+        static let visitWebsite = "Visit Website"
+        static let directions = "Directions"
+        static let call = "Call"
     }
-    
+
     private let titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.font = .boldSystemFont(ofSize: 32)
         label.textColor = .black
         label.numberOfLines = 0
-        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return label
     }()
     
-    private let addressLabel: UILabel = {
+    private let categoryLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        label.font = .boldSystemFont(ofSize: 16)
+        label.font = .boldSystemFont(ofSize: 14)
         label.textColor = .black
         label.numberOfLines = 0
-        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return label
-    }()
-    
-    private let phoneButton: UIButton = {
-        let button = UIButton(frame: .zero)
-        button.setContentHuggingPriority(.defaultHigh, for: .vertical)
-//        button.titleLabel?.font = .boldSystemFont(ofSize: 16)
-//        button.setTitleColor(.black, for: .normal)
-        return button
     }()
     
     private let descriptionLabel: UILabel = {
@@ -46,8 +41,28 @@ final class LocationDetailPageViewController: UIViewController {
         label.font = .boldSystemFont(ofSize: 14)
         label.textColor = .black
         label.numberOfLines = 0
-        label.setContentHuggingPriority(.defaultLow, for: .vertical)
         return label
+    }()
+    
+    private let addressButton: MDCRaisedButton = {
+        let button = MDCRaisedButton(type: .system)
+        MDCOutlinedButtonThemer.applyScheme(MDCButtonScheme(), to: button)
+        button.setTitleColor(.black, for: .normal)
+        return button
+    }()
+    
+    private let phoneButton: MDCRaisedButton = {
+        let button = MDCRaisedButton(type: .system)
+        MDCOutlinedButtonThemer.applyScheme(MDCButtonScheme(), to: button)
+        button.setTitleColor(.black, for: .normal)
+        return button
+    }()
+    
+    private let urlButton: MDCRaisedButton = {
+        let button = MDCRaisedButton(type: .system)
+        MDCOutlinedButtonThemer.applyScheme(MDCButtonScheme(), to: button)
+        button.setTitleColor(.black, for: .normal)
+        return button
     }()
     
     private let stackView: UIStackView = {
@@ -59,6 +74,7 @@ final class LocationDetailPageViewController: UIViewController {
     }()
     
     private let location: ShelterLocation
+    private var scrollView: UIScrollView = UIScrollView(frame: .zero)
     
     init(with location: ShelterLocation) {
         self.location = location
@@ -77,61 +93,101 @@ final class LocationDetailPageViewController: UIViewController {
         view.backgroundColor = Colors.backgroundColor
         title = location.organizationName
         phoneButton.addTarget(self, action: #selector(callPhoneNumber), for: .primaryActionTriggered)
+        urlButton.addTarget(self, action: #selector(goToWebsite), for: .primaryActionTriggered)
+        addressButton.addTarget(self, action: #selector(openMaps), for: .primaryActionTriggered)
     }
-    
 }
 
 // MARK: - Private
 
 private extension LocationDetailPageViewController {
     func configureSubviews() {
-        view.addSubview(stackView)
+        scrollView = UIScrollView(frame: view.bounds)
+        scrollView.contentSize = view.bounds.size
+        scrollView.isDirectionalLockEnabled = true
+        
+        view.addSubview(scrollView)
+        scrollView.addSubview(stackView)
+        
         stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(addressLabel)
-        stackView.addArrangedSubview(phoneButton)
+        stackView.addArrangedSubview(categoryLabel)
         stackView.addArrangedSubview(descriptionLabel)
+        stackView.addArrangedSubview(phoneButton)
+        stackView.addArrangedSubview(addressButton)
+        stackView.addArrangedSubview(urlButton)
     }
     
     func configureLayout() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.sideInsets),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.sideInsets)
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.sideInsets),
+            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: Constants.sideInsets),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -Constants.sideInsets),
+
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
         if #available(iOS 11.0, *) {
             NSLayoutConstraint.activate([
-                stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.sideInsets)
+                scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             ])
         } else {
             NSLayoutConstraint.activate([
-                stackView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: Constants.sideInsets)
+                scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+                scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ])
         }
     }
     
     func applyLocation() {
         titleLabel.text = location.organizationName
-        addressLabel.text = location.fullAddress
         descriptionLabel.text = location.overview
-        if let phoneNumber = location.phoneNumber {
-            let attributes = [
-                NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16.0),
-                NSAttributedString.Key.foregroundColor : UIColor.blue,
-                NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue
-                ] as [NSAttributedString.Key : Any]
-            let phoneNumber = NSAttributedString(string: phoneNumber, attributes: attributes)
-            phoneButton.setAttributedTitle(phoneNumber, for: .normal)
+        
+        if let category = location.category {
+            categoryLabel.text = category.rawValue
+        }
+
+        if let _ = location.fullAddress {
+            addressButton.setTitle(Constants.directions, for: .normal)
+        }
+        if let _ = location.website {
+            urlButton.setTitle(Constants.visitWebsite, for: .normal)
+        }
+        if let _ = location.phoneNumber {
+            phoneButton.setTitle(Constants.call, for: .normal)
         }
     }
     
     @objc func callPhoneNumber() {
         let phoneNumber = location.phoneNumber?.filter{ return "0123456789".contains($0) }
         if let url = URL(string: "tel://\(phoneNumber ?? "")"), UIApplication.shared.canOpenURL(url) {
-            if #available(iOS 10, *) {
-                UIApplication.shared.open(url)
-            } else {
-                UIApplication.shared.openURL(url)
+            openUrl(url: url)
+        }
+    }
+    
+    @objc func goToWebsite() {
+        guard let urlString = location.website else { return }
+        if let url = URL(string: urlString) {
+            openUrl(url: url)
+        }
+    }
+    
+    @objc func openMaps() {
+        guard let address = location.fullAddress else { return }
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(address) { (placemarksOptional, error) -> Void in
+            if let placemarks = placemarksOptional {
+                if let location = placemarks.first?.location {
+                    let query = "?ll=\(location.coordinate.latitude),\(location.coordinate.longitude)"
+                    let path = "http://maps.apple.com/" + query
+                    if let url = URL(string: path) {
+                        self.openUrl(url: url)
+                    }
+                }
             }
         }
     }
