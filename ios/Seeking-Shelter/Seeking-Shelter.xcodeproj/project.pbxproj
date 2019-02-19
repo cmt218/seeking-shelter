@@ -29,10 +29,11 @@
 		0DB242B921B4685C00D4D8A8 /* ListingCollectionViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB242B821B4685C00D4D8A8 /* ListingCollectionViewHeaderCell.swift */; };
 		0DB242BB21C08F0C00D4D8A8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0DB242BA21C08F0C00D4D8A8 /* GoogleService-Info.plist */; };
 		0DF1A3362213C92A00845DA7 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1A3352213C92A00845DA7 /* UIViewController+Extensions.swift */; };
+		0DF1A338221B95B800845DA7 /* FirebaseFirestore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DF1A337221B95B800845DA7 /* FirebaseFirestore.framework */; };
+		0DF1A33A221B96BB00845DA7 /* MaterialComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DF1A339221B96BB00845DA7 /* MaterialComponents.framework */; };
 		0DF47F0121C9C7C5007E9A6B /* CitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF47F0021C9C7C5007E9A6B /* CitiesViewController.swift */; };
 		0DF47F0521C9D338007E9A6B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF47F0421C9D338007E9A6B /* Colors.swift */; };
 		0DF47F0721C9E153007E9A6B /* UIStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF47F0621C9E153007E9A6B /* UIStyles.swift */; };
-		106D65872E1C2CD6ABF9FEC4 /* Pods_Seeking_Shelter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 761CF887C9B3EFFBDEF60321 /* Pods_Seeking_Shelter.framework */; };
 		3051BB0B76CED4059E31937A /* Pods_Seeking_ShelterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C6701FCEB36BB22B734524 /* Pods_Seeking_ShelterUITests.framework */; };
 		6239C503B81C0F944252EA90 /* Pods_Seeking_ShelterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EB4D1C058945E461D317DAA /* Pods_Seeking_ShelterTests.framework */; };
 /* End PBXBuildFile section */
@@ -83,6 +84,8 @@
 		0DB242B821B4685C00D4D8A8 /* ListingCollectionViewHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingCollectionViewHeaderCell.swift; sourceTree = "<group>"; };
 		0DB242BA21C08F0C00D4D8A8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0DF1A3352213C92A00845DA7 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		0DF1A337221B95B800845DA7 /* FirebaseFirestore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseFirestore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0DF1A339221B96BB00845DA7 /* MaterialComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MaterialComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DF47F0021C9C7C5007E9A6B /* CitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewController.swift; sourceTree = "<group>"; };
 		0DF47F0421C9D338007E9A6B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0DF47F0621C9E153007E9A6B /* UIStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStyles.swift; sourceTree = "<group>"; };
@@ -102,7 +105,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				106D65872E1C2CD6ABF9FEC4 /* Pods_Seeking_Shelter.framework in Frameworks */,
+				0DF1A33A221B96BB00845DA7 /* MaterialComponents.framework in Frameworks */,
+				0DF1A338221B95B800845DA7 /* FirebaseFirestore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +299,8 @@
 		93ECDC58CD649E7D58F4C0A8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0DF1A339221B96BB00845DA7 /* MaterialComponents.framework */,
+				0DF1A337221B95B800845DA7 /* FirebaseFirestore.framework */,
 				761CF887C9B3EFFBDEF60321 /* Pods_Seeking_Shelter.framework */,
 				9EB4D1C058945E461D317DAA /* Pods_Seeking_ShelterTests.framework */,
 				56C6701FCEB36BB22B734524 /* Pods_Seeking_ShelterUITests.framework */,
