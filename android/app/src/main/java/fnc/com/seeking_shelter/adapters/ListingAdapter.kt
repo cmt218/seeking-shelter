@@ -7,20 +7,24 @@ import android.view.ViewGroup
 import android.widget.TextView
 import fnc.com.seeking_shelter.R
 import fnc.com.seeking_shelter.responses.ListingResponse
-import kotlinx.android.synthetic.main.listing.view.*
+import kotlinx.android.synthetic.main.listing_city.view.*
 
 class ListingAdapter(private val listings: List<ListingResponse>, val type: Int, val listener: (ListingResponse) -> Unit) : RecyclerView.Adapter<ListingAdapter.ListingViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int) = ListingViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.listing, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+            when (type) {
+                ORGANIZATION_NAME -> ListingViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.listing_organization, parent, false))
+                else -> ListingViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.listing_city, parent, false))
+            }
 
     override fun getItemCount() = listings.size
 
-    override fun onBindViewHolder(holder: ListingViewHolder, position: Int) {
-        when(type){
-            ORGANIZATION_NAME -> holder.bindOrganizationName(listings[position], listener)
-            else -> holder.bindCity(listings[position], listener)
-        }
-    }
+    override fun onBindViewHolder(holder: ListingViewHolder, position: Int) =
+            when (type) {
+                ORGANIZATION_NAME -> holder.bindOrganizationName(listings[position], listener)
+                else -> holder.bindCity(listings[position], listener)
+            }
+
 
     class ListingViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.name)

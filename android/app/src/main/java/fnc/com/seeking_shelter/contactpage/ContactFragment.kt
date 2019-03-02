@@ -7,12 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import fnc.com.seeking_shelter.R
 import fnc.com.seeking_shelter.extensions.openBrowser
+import fnc.com.seeking_shelter.extensions.openEmail
 import kotlinx.android.synthetic.main.contact_fragment.*
 
 class ContactFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater.inflate(R.layout.contact_fragment, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = url.setOnClickListener { v -> this.openBrowser(url.text.toString())}
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        url.setOnClickListener { _ -> this.openBrowser(getString(R.string.site_url)) }
+        email.setOnClickListener { _ -> this.openEmail() }
+        facebook.setOnClickListener { _ -> this.openBrowser(getString(R.string.facebook_url)) }
+        instagram.setOnClickListener { _ -> this.openBrowser(getString(R.string.instagram_url)) }
+    }
 
     companion object {
         @JvmStatic

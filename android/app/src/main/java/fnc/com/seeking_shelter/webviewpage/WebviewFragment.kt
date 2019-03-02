@@ -9,11 +9,12 @@ import fnc.com.seeking_shelter.R
 import kotlinx.android.synthetic.main.web_view.*
 
 class WebviewFragment : Fragment() {
-    private lateinit var url: String;
+    private lateinit var url: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater.inflate(R.layout.web_view, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) = webview.loadUrl(url)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = webview.loadUrl(url)
+
 
     companion object {
         @JvmStatic
