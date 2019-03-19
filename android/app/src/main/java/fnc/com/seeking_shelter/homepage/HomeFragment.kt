@@ -9,8 +9,8 @@ import fnc.com.seeking_shelter.R
 import fnc.com.seeking_shelter.citieslistingpage.CitiesListingFragment
 import fnc.com.seeking_shelter.contactpage.ContactFragment
 import fnc.com.seeking_shelter.extensions.changeFragment
+import fnc.com.seeking_shelter.extensions.openBrowser
 import fnc.com.seeking_shelter.mappage.MapFragment
-import fnc.com.seeking_shelter.webviewpage.WebviewFragment
 import kotlinx.android.synthetic.main.home_fragment.*
 
 class HomeFragment : Fragment() {
@@ -22,7 +22,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         navigate_donate.setOnClickListener {
-            _ -> this.changeFragment(WebviewFragment.newInstance(getString(R.string.donate_url))) }
+            _ -> this.openBrowser(getString(R.string.donate_url))}
         navigate_contact.setOnClickListener {
             _ -> this.changeFragment(ContactFragment.newInstance()) }
         navigate_list.setOnClickListener {
