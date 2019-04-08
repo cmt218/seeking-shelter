@@ -8,15 +8,12 @@ import fnc.com.seeking_shelter.R
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.LatLng
 import android.content.pm.PackageManager
-import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.view.*
 import android.widget.TextView
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.places.*
 import com.google.android.gms.maps.*
 import fnc.com.seeking_shelter.extensions.changeFragment
 import fnc.com.seeking_shelter.model.ListingDataFragmentContract
@@ -25,18 +22,41 @@ import fnc.com.seeking_shelter.model.Model
 import fnc.com.seeking_shelter.responses.ListingResponse
 
 
-class MapFragment : Fragment(), OnMapReadyCallback, ListingDataFragmentContract.CanGetListings, GoogleMap.OnInfoWindowClickListener, GoogleMap.InfoWindowAdapter {
+class MapFragment : Fragment(),
+        OnMapReadyCallback,
+        ListingDataFragmentContract.CanGetListings,
+        GoogleMap.OnInfoWindowClickListener,
+        GoogleMap.InfoWindowAdapter {
+
     private lateinit var map: GoogleMap
     private var cameraPosition: CameraPosition? = null
     private var lastKnownLocation: Location? = null
 
-    private lateinit var geoDataClient: GeoDataClient
-    private lateinit var placeDetectionClient: PlaceDetectionClient
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
+    private val locationRequest = LocationRequest.create()
+            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+            .setInterval(1000L)
+
+    private val locationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult?) {
+            fusedLocationProviderClient.removeLocationUpdates(this)
+            if (locationResult != null) {
+                map.moveCamera(CameraUpdateFactory
+                        .newLatLngZoom(LatLng(locationResult.lastLocation.latitude,
+                                locationResult.lastLocation.longitude), DEFAULT_ZOOM))
+            } else {
+                map.moveCamera(CameraUpdateFactory
+                        .newLatLngZoom(defaultLocation, DEFAULT_ZOOM))
+            }
+            super.onLocationResult(locationResult)
+        }
+    }
 
     private val mapModel = Model(this)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?, savedInstanceState: Bundle?): View? {
         savedInstanceState?.let {
             lastKnownLocation = it.getParcelable(KEY_LOCATION)
             cameraPosition = it.getParcelable(KEY_CAMERA_POSITION)
@@ -44,9 +64,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, ListingDataFragmentContract.
 
         val root = inflater.inflate(R.layout.map_fragment, container, false)
 
-        geoDataClient = Places.getGeoDataClient(context!!)
-        placeDetectionClient = Places.getPlaceDetectionClient(context!!)
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity as Activity)
+        fusedLocationProviderClient = LocationServices
+                .getFusedLocationProviderClient(activity as Activity)
 
         val mapView: MapView = root.findViewById(R.id.map_view)
         mapView.onCreate(savedInstanceState)
@@ -67,9 +86,11 @@ class MapFragment : Fragment(), OnMapReadyCallback, ListingDataFragmentContract.
     }
 
     override fun onListingsLoaded(listings: List<ListingResponse>) {
-        val sanitizedListings = listings.filter { it.latitude.isNotEmpty() }.filter { it.longitude.isNotEmpty() }
+        val sanitizedListings = listings
+                .filter { it.latitude.isNotEmpty() }.filter { it.longitude.isNotEmpty() }
         for (listing in sanitizedListings) {
-            val marker = map.addMarker(MarkerOptions().position(LatLng(listing.latitude.toDouble(), listing.longitude.toDouble())))
+            val marker = map.addMarker(MarkerOptions()
+                    .position(LatLng(listing.latitude.toDouble(), listing.longitude.toDouble())))
             marker.tag = listing
         }
     }
@@ -82,31 +103,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, ListingDataFragmentContract.
         }
 
         mapModel.fetchAllPlaces()
-
         getLocationPermission()
-        updateLocationUI()
-        getDeviceLocation()
-    }
-
-    private fun getDeviceLocation() {
-        try {
-            if (locationPermissionGranted) {
-                val locationResult = fusedLocationProviderClient.lastLocation
-                locationResult.addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        lastKnownLocation = task.result as Location
-                        lastKnownLocation?.let {
-                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(it.latitude, it.longitude), DEFAULT_ZOOM))
-                        }
-                    } else {
-                        map.moveCamera(CameraUpdateFactory
-                                .newLatLngZoom(defaultLocation, DEFAULT_ZOOM))
-                        map.uiSettings.isMyLocationButtonEnabled = false
-                    }
-                }
-            }
-        } catch (e: SecurityException) {
-        }
     }
 
     private fun getLocationPermission() {
@@ -114,24 +111,11 @@ class MapFragment : Fragment(), OnMapReadyCallback, ListingDataFragmentContract.
                         android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             locationPermissionGranted = true
+            updateLocationUI()
         } else {
-            ActivityCompat.requestPermissions(activity as Activity,
-                    arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+            requestPermissions(arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
         }
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        locationPermissionGranted = false
-        when (requestCode) {
-            PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    locationPermissionGranted = true
-                }
-            }
-        }
-        updateLocationUI()
     }
 
     private fun updateLocationUI() {
@@ -144,7 +128,33 @@ class MapFragment : Fragment(), OnMapReadyCallback, ListingDataFragmentContract.
                 map.uiSettings.isMyLocationButtonEnabled = false
                 getLocationPermission()
             }
+            getDeviceLocation()
         } catch (e: SecurityException) {
+        }
+    }
+
+    private fun getDeviceLocation() {
+        try {
+            if (locationPermissionGranted) {
+                fusedLocationProviderClient
+                        .requestLocationUpdates(locationRequest, locationCallback, null)
+            } else {
+                map.moveCamera(CameraUpdateFactory
+                        .newLatLngZoom(defaultLocation, DEFAULT_ZOOM))
+            }
+        } catch (e: SecurityException) {
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        locationPermissionGranted = false
+        when (requestCode) {
+            PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
+                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    locationPermissionGranted = true
+                    updateLocationUI()
+                }
+            }
         }
     }
 
@@ -165,7 +175,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, ListingDataFragmentContract.
     override fun getInfoWindow(marker: Marker?): View? = null
 
     companion object {
-        private val TAG = MapFragment::class.java.name
         private const val DEFAULT_ZOOM: Float = 15f
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
         private const val KEY_CAMERA_POSITION = "camera_position"
