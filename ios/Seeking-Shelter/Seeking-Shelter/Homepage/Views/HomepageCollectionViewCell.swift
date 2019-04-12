@@ -42,6 +42,7 @@ class HomepageCollectionViewCell: MDCCardCollectionCell {
         let size = contentView.systemLayoutSizeFitting(layoutAttributes.size)
         var frame = layoutAttributes.frame
         frame.size.height = ceil(size.height + Constants.spacing * 2)
+        frame.size.width = UIScreen.main.bounds.width - (2 * Constants.spacing)
         layoutAttributes.frame = frame
         return layoutAttributes
     }

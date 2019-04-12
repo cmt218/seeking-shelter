@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import SafariServices
 
 public class HomepageViewController: UIViewController {
     
@@ -20,17 +19,16 @@ public class HomepageViewController: UIViewController {
         static let webSiteUrl = "https://www.gofundme.com/homelessnomoreapp"
     }
     
+    @IBOutlet weak var navigationCollectionView: UICollectionView!
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
         registerCells()
         configureSubviews()
-        configureLayout()
         title = "Home"
         let layout = navigationCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.estimatedItemSize = CGSize(width: navigationCollectionView.frame.width, height: Constants.cellHeight)
     }
-    
-    @IBOutlet weak var navigationCollectionView: UICollectionView!
 }
 
 // MARK: - UICollectionViewDelegate
@@ -50,7 +48,13 @@ extension HomepageViewController: UICollectionViewDelegate {
             let viewController = ContactViewController()
             self.navigationController?.pushViewController(viewController, animated: true)
         case 4:
-            displayWebView(with: Constants.webSiteUrl)
+            if let url = URL(string: "https://www.gofundme.com/homelessnomoreapp") {
+                openUrl(url: url)
+            } else {
+                let alert = UIAlertController(title: "Could not load page", message: "Please try again", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                self.present(alert, animated: true)
+            }
         default: //This really shouldn't happen
             let alert = UIAlertController(title: "Could not load page", message: "Please try again", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -110,27 +114,4 @@ private extension HomepageViewController {
         navigationCollectionView.dataSource = self
         navigationCollectionView.delegate = self
     }
-    
-    func configureLayout() {
-        
-    }
-    
-    func displayWebView(with url: String?) {
-        guard let urlString = url else {
-            return // open an error message
-        }
-        
-        if let url = URL(string: urlString) {
-            let safariViewController = SFSafariViewController(url: url)
-            safariViewController.delegate = self
-            
-            present(safariViewController, animated: true)
-        }
-    }
-    
-}
-
-// MARK : SafariViewController
-extension HomepageViewController: SFSafariViewControllerDelegate {
-    
 }

@@ -177,18 +177,12 @@ private extension LocationDetailPageViewController {
     }
     
     @objc func openMaps() {
-        guard let address = location.fullAddress else { return }
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(address) { (placemarksOptional, error) -> Void in
-            if let placemarks = placemarksOptional {
-                if let location = placemarks.first?.location {
-                    let query = "?ll=\(location.coordinate.latitude),\(location.coordinate.longitude)"
-                    let path = "http://maps.apple.com/" + query
-                    if let url = URL(string: path) {
-                        self.openUrl(url: url)
-                    }
-                }
-            }
+        guard let address = location.fullAddress?.replacingOccurrences(of: " ", with: "%20").trimmingCharacters(in: .whitespacesAndNewlines) else { return }
+
+        let query = "?address=\(address)"
+        let path = "http://maps.apple.com/" + query
+        if let url = URL(string: path) {
+            self.openUrl(url: url)
         }
     }
 }

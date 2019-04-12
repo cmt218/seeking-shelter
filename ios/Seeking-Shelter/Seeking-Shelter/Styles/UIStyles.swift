@@ -6,7 +6,7 @@
 //  Copyright © 2018 Ferguson Watkins. All rights reserved.
 //
 
-import MaterialComponents
+import MaterialComponents.MaterialCards
 
 extension MDCCardCollectionCell {
     func applyTableCellStyle() {
