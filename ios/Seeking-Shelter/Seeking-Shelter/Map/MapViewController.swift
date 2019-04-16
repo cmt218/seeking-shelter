@@ -38,7 +38,9 @@ class MapViewController: UIViewController {
         getCurrentLocation()
         configureSubviews()
         configureLayout()
+        centerMapOnLocation(location: locationManager.location)
         title = "Map"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(goBack))
     }
     
 }
@@ -81,7 +83,10 @@ private extension MapViewController {
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
-        centerMapOnLocation(location: locationManager.location)
+    }
+    
+    @objc func goBack() {
+        dismiss(animated: true)
     }
 }
 
@@ -90,7 +95,6 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         getCurrentLocation()
     }
-    
 }
 
 // MARK: - MKMapViewDelegate
@@ -101,7 +105,8 @@ extension MapViewController: MKMapViewDelegate {
             return
         }
         let locationDetailPageViewController = LocationDetailPageViewController(with: tag)
-        let navController = UINavigationController(rootViewController: locationDetailPageViewController)
-        present(navController, animated: true)
+        //let navController = UINavigationController(rootViewController: locationDetailPageViewController)
+        //present(navController, animated: true)
+        navigationController?.pushViewController(locationDetailPageViewController, animated: true)
     }
 }

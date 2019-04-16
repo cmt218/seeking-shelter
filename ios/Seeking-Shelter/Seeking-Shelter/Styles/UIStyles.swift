@@ -6,18 +6,10 @@
 //  Copyright © 2018 Ferguson Watkins. All rights reserved.
 //
 
-import MaterialComponents
+import MaterialComponents.MaterialCards
 
 extension MDCCardCollectionCell {
     func applyTableCellStyle() {
-        cornerRadius = 4
-        setShadowElevation(ShadowElevation(rawValue: 6), for: .selected)
-        setShadowColor(Colors.cardShadowColor, for: .normal)
-    }
-}
-
-extension MDCCard {
-    func applyCardViewStyle() {
         cornerRadius = 4
         setShadowElevation(ShadowElevation(rawValue: 6), for: .selected)
         setShadowColor(Colors.cardShadowColor, for: .normal)

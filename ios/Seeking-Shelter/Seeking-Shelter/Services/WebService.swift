@@ -23,7 +23,7 @@ final class WebService {
     func getLocations(completion: @escaping (ShelterLocationsList) -> Void) {
         var shelterLocationList: [ShelterLocation] = []
         
-        database.collection("data").addSnapshotListener { (querySnapshot, err) in
+        database.collection("locations").addSnapshotListener { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {

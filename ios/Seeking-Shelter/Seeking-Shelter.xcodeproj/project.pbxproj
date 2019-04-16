@@ -16,6 +16,7 @@
 		0D04D428217B875800268D70 /* Location.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D04D427217B875800268D70 /* Location.json */; };
 		0D04D42C21815A9500268D70 /* ListingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D04D42B21815A9500268D70 /* ListingsCollectionViewCell.swift */; };
 		0D04D42E2185050500268D70 /* LocationList.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D04D42D2185050500268D70 /* LocationList.json */; };
+		0D32E2A421F3C8D0004FDDAD /* HomepageLogoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D32E2A321F3C8D0004FDDAD /* HomepageLogoCell.swift */; };
 		0D5FA186218F6918006B57FA /* LocationDetailPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5FA185218F6918006B57FA /* LocationDetailPageViewController.swift */; };
 		0D8AE692216AAA98006F38E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8AE691216AAA98006F38E0 /* AppDelegate.swift */; };
 		0D8AE697216AAA98006F38E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D8AE695216AAA98006F38E0 /* Main.storyboard */; };
@@ -27,10 +28,12 @@
 		0DA671BD218E4A0B00F92095 /* CompressedLocationList.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DA671BC218E4A0B00F92095 /* CompressedLocationList.json */; };
 		0DB242B921B4685C00D4D8A8 /* ListingCollectionViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB242B821B4685C00D4D8A8 /* ListingCollectionViewHeaderCell.swift */; };
 		0DB242BB21C08F0C00D4D8A8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0DB242BA21C08F0C00D4D8A8 /* GoogleService-Info.plist */; };
+		0DF1A3362213C92A00845DA7 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF1A3352213C92A00845DA7 /* UIViewController+Extensions.swift */; };
+		0DF1A338221B95B800845DA7 /* FirebaseFirestore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DF1A337221B95B800845DA7 /* FirebaseFirestore.framework */; };
+		0DF1A33A221B96BB00845DA7 /* MaterialComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DF1A339221B96BB00845DA7 /* MaterialComponents.framework */; };
 		0DF47F0121C9C7C5007E9A6B /* CitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF47F0021C9C7C5007E9A6B /* CitiesViewController.swift */; };
 		0DF47F0521C9D338007E9A6B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF47F0421C9D338007E9A6B /* Colors.swift */; };
 		0DF47F0721C9E153007E9A6B /* UIStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF47F0621C9E153007E9A6B /* UIStyles.swift */; };
-		106D65872E1C2CD6ABF9FEC4 /* Pods_Seeking_Shelter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 761CF887C9B3EFFBDEF60321 /* Pods_Seeking_Shelter.framework */; };
 		3051BB0B76CED4059E31937A /* Pods_Seeking_ShelterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C6701FCEB36BB22B734524 /* Pods_Seeking_ShelterUITests.framework */; };
 		6239C503B81C0F944252EA90 /* Pods_Seeking_ShelterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EB4D1C058945E461D317DAA /* Pods_Seeking_ShelterTests.framework */; };
 /* End PBXBuildFile section */
@@ -62,6 +65,7 @@
 		0D04D427217B875800268D70 /* Location.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Location.json; sourceTree = "<group>"; };
 		0D04D42B21815A9500268D70 /* ListingsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingsCollectionViewCell.swift; sourceTree = "<group>"; };
 		0D04D42D2185050500268D70 /* LocationList.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LocationList.json; sourceTree = "<group>"; };
+		0D32E2A321F3C8D0004FDDAD /* HomepageLogoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageLogoCell.swift; sourceTree = "<group>"; };
 		0D5FA185218F6918006B57FA /* LocationDetailPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailPageViewController.swift; sourceTree = "<group>"; };
 		0D8AE68E216AAA98006F38E0 /* Seeking-Shelter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Seeking-Shelter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D8AE691216AAA98006F38E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +83,9 @@
 		0DA671BC218E4A0B00F92095 /* CompressedLocationList.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CompressedLocationList.json; sourceTree = "<group>"; };
 		0DB242B821B4685C00D4D8A8 /* ListingCollectionViewHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingCollectionViewHeaderCell.swift; sourceTree = "<group>"; };
 		0DB242BA21C08F0C00D4D8A8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0DF1A3352213C92A00845DA7 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		0DF1A337221B95B800845DA7 /* FirebaseFirestore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseFirestore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0DF1A339221B96BB00845DA7 /* MaterialComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MaterialComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DF47F0021C9C7C5007E9A6B /* CitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewController.swift; sourceTree = "<group>"; };
 		0DF47F0421C9D338007E9A6B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0DF47F0621C9E153007E9A6B /* UIStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStyles.swift; sourceTree = "<group>"; };
@@ -98,7 +105,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				106D65872E1C2CD6ABF9FEC4 /* Pods_Seeking_Shelter.framework in Frameworks */,
+				0DF1A33A221B96BB00845DA7 /* MaterialComponents.framework in Frameworks */,
+				0DF1A338221B95B800845DA7 /* FirebaseFirestore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +181,15 @@
 			path = TestJsons;
 			sourceTree = "<group>";
 		};
+		0D32E2A521F3C8DE004FDDAD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0D32E2A321F3C8D0004FDDAD /* HomepageLogoCell.swift */,
+				0D04D4112176A73500268D70 /* HomepageCollectionViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		0D5FA184218F66BD006B57FA /* LocationDetailPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,6 +231,7 @@
 				0D04D414217805F400268D70 /* Contact */,
 				0D5FA184218F66BD006B57FA /* LocationDetailPage */,
 				0D8AE6BF216AAC48006F38E0 /* Homepage */,
+				0DF1A3342213C90400845DA7 /* Extensions */,
 				0D04D426217B872A00268D70 /* TestJsons */,
 				0D8AE691216AAA98006F38E0 /* AppDelegate.swift */,
 				0D8AE695216AAA98006F38E0 /* Main.storyboard */,
@@ -246,10 +264,18 @@
 		0D8AE6BF216AAC48006F38E0 /* Homepage */ = {
 			isa = PBXGroup;
 			children = (
+				0D32E2A521F3C8DE004FDDAD /* Views */,
 				0D8AE6C0216AACD8006F38E0 /* HomepageViewController.swift */,
-				0D04D4112176A73500268D70 /* HomepageCollectionViewCell.swift */,
 			);
 			path = Homepage;
+			sourceTree = "<group>";
+		};
+		0DF1A3342213C90400845DA7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0DF1A3352213C92A00845DA7 /* UIViewController+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		0DF47F0221C9C7D0007E9A6B /* Views */ = {
@@ -273,6 +299,8 @@
 		93ECDC58CD649E7D58F4C0A8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0DF1A339221B96BB00845DA7 /* MaterialComponents.framework */,
+				0DF1A337221B95B800845DA7 /* FirebaseFirestore.framework */,
 				761CF887C9B3EFFBDEF60321 /* Pods_Seeking_Shelter.framework */,
 				9EB4D1C058945E461D317DAA /* Pods_Seeking_ShelterTests.framework */,
 				56C6701FCEB36BB22B734524 /* Pods_Seeking_ShelterUITests.framework */,
@@ -542,10 +570,12 @@
 				0D04D4162178061900268D70 /* ContactViewController.swift in Sources */,
 				0D8AE6C1216AACD8006F38E0 /* HomepageViewController.swift in Sources */,
 				0D04D42C21815A9500268D70 /* ListingsCollectionViewCell.swift in Sources */,
+				0D32E2A421F3C8D0004FDDAD /* HomepageLogoCell.swift in Sources */,
 				0D5FA186218F6918006B57FA /* LocationDetailPageViewController.swift in Sources */,
 				0DF47F0521C9D338007E9A6B /* Colors.swift in Sources */,
 				0D04D41F217818AF00268D70 /* ListingsViewController.swift in Sources */,
 				0DF47F0121C9C7C5007E9A6B /* CitiesViewController.swift in Sources */,
+				0DF1A3362213C92A00845DA7 /* UIViewController+Extensions.swift in Sources */,
 				0DF47F0721C9E153007E9A6B /* UIStyles.swift in Sources */,
 				0DB242B921B4685C00D4D8A8 /* ListingCollectionViewHeaderCell.swift in Sources */,
 				0D04D4122176A73500268D70 /* HomepageCollectionViewCell.swift in Sources */,
@@ -732,7 +762,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "FnC.Seeking-Shelter";
+				PRODUCT_BUNDLE_IDENTIFIER = "FnC.Seeking-Shelter.app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -752,7 +782,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "FnC.Seeking-Shelter";
+				PRODUCT_BUNDLE_IDENTIFIER = "FnC.Seeking-Shelter.app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
