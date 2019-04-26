@@ -14,7 +14,7 @@ public class HomepageViewController: UIViewController {
     private enum Constants {
         static let cellReuseIdentifier = "HomepageCollectionViewCell"
         static let logoCellReuseIdentifier = "HomepageLogoCell"
-        static let CellTitles = ["", "Near Me", "Our Cities", "Contact Us", "Donate"]
+        static let CellTitles = ["", "Near Me", "Our Cities", "Contact Us", "Resources", "Donate"]
         static let cellHeight: CGFloat = 100
         static let webSiteUrl = "https://www.gofundme.com/homelessnomoreapp"
     }
@@ -48,6 +48,9 @@ extension HomepageViewController: UICollectionViewDelegate {
             let viewController = ContactViewController()
             self.navigationController?.pushViewController(viewController, animated: true)
         case 4:
+            let viewController = ResourcesViewController()
+            self.navigationController?.pushViewController(viewController, animated: true)
+        case 5:
             if let url = URL(string: "https://www.gofundme.com/homelessnomoreapp") {
                 openUrl(url: url)
             } else {

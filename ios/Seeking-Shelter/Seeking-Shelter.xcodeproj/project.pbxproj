@@ -36,6 +36,7 @@
 		0DF47F0721C9E153007E9A6B /* UIStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF47F0621C9E153007E9A6B /* UIStyles.swift */; };
 		3051BB0B76CED4059E31937A /* Pods_Seeking_ShelterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C6701FCEB36BB22B734524 /* Pods_Seeking_ShelterUITests.framework */; };
 		6239C503B81C0F944252EA90 /* Pods_Seeking_ShelterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EB4D1C058945E461D317DAA /* Pods_Seeking_ShelterTests.framework */; };
+		EDF1A3B1226563D400A3EB82 /* ResourcesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF1A3B0226563D400A3EB82 /* ResourcesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,7 @@
 		84C17549F00E7089DD723189 /* Pods-Seeking-ShelterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeking-ShelterTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Seeking-ShelterTests/Pods-Seeking-ShelterTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9EB4D1C058945E461D317DAA /* Pods_Seeking_ShelterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Seeking_ShelterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E303DD31750723B7E6F0FAC9 /* Pods-Seeking-Shelter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeking-Shelter.release.xcconfig"; path = "Pods/Target Support Files/Pods-Seeking-Shelter/Pods-Seeking-Shelter.release.xcconfig"; sourceTree = "<group>"; };
+		EDF1A3B0226563D400A3EB82 /* ResourcesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesViewController.swift; sourceTree = "<group>"; };
 		F5C8D944AD39EAA421694602 /* Pods-Seeking-ShelterUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seeking-ShelterUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Seeking-ShelterUITests/Pods-Seeking-ShelterUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -229,6 +231,7 @@
 				0D04D41C217817DA00268D70 /* Map */,
 				0D04D41D2178189800268D70 /* Listings */,
 				0D04D414217805F400268D70 /* Contact */,
+				EDF1A3AF2265639000A3EB82 /* Resources */,
 				0D5FA184218F66BD006B57FA /* LocationDetailPage */,
 				0D8AE6BF216AAC48006F38E0 /* Homepage */,
 				0DF1A3342213C90400845DA7 /* Extensions */,
@@ -319,6 +322,14 @@
 				F5C8D944AD39EAA421694602 /* Pods-Seeking-ShelterUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		EDF1A3AF2265639000A3EB82 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EDF1A3B0226563D400A3EB82 /* ResourcesViewController.swift */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -570,6 +581,7 @@
 				0D04D4162178061900268D70 /* ContactViewController.swift in Sources */,
 				0D8AE6C1216AACD8006F38E0 /* HomepageViewController.swift in Sources */,
 				0D04D42C21815A9500268D70 /* ListingsCollectionViewCell.swift in Sources */,
+				EDF1A3B1226563D400A3EB82 /* ResourcesViewController.swift in Sources */,
 				0D32E2A421F3C8D0004FDDAD /* HomepageLogoCell.swift in Sources */,
 				0D5FA186218F6918006B57FA /* LocationDetailPageViewController.swift in Sources */,
 				0DF47F0521C9D338007E9A6B /* Colors.swift in Sources */,
