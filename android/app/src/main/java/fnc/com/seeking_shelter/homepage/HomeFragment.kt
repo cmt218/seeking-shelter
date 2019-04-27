@@ -11,6 +11,7 @@ import fnc.com.seeking_shelter.contactpage.ContactFragment
 import fnc.com.seeking_shelter.extensions.changeFragment
 import fnc.com.seeking_shelter.extensions.openBrowser
 import fnc.com.seeking_shelter.mappage.MapFragment
+import fnc.com.seeking_shelter.resourcespage.ResourcesFragment
 import kotlinx.android.synthetic.main.home_fragment.*
 
 class HomeFragment : Fragment() {
@@ -29,6 +30,9 @@ class HomeFragment : Fragment() {
             _ -> this.changeFragment(CitiesListingFragment.newInstance()) }
         navigate_map.setOnClickListener {
             _ -> this.changeFragment(MapFragment.newInstance()) }
+        navigate_resources.setOnClickListener {
+            _ -> this.changeFragment(ResourcesFragment.newInstance())
+        }
 
         super.onViewCreated(view, savedInstanceState)
     }

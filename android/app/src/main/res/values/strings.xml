@@ -18,4 +18,16 @@
     <string name="visit_facebook">Visit Facebook</string>
     <string name="visit_instagram">Visit Instagram</string>
     <string name="visit_website">Visit Website</string>
+    <string name="resources">Resources</string>
+    <string name="domesticViolence">National Domestic Violence Hotline</string>
+    <string name="sexualAssault">Sexual Assault Hotline</string>
+    <string name="childAbuse">Child Abuse Hotline</string>
+    <string name="trevorHotline">Trevor Hotline (LGBTQ Youth Suicide)</string>
+    <string name="missingChild">Missing Child Hotline</string>
+    <string name="drugAbuse">Drug Abuse Hotline</string>
+    <string name="runawayHotline">National Runaway Hotline</string>
+    <string name="youthCrisis">Youth Crisis Hotline</string>
+    <string name="suicide">National Suicide Hotline</string>
+    <string name="elderAbuse">Elder Abuse Hotline</string>
+
 </resources>
